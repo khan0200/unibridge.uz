@@ -1,1 +1,466 @@
+<!doctype html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Unibridge Consulting</title>
+    <meta name="description" content="Helping students connect with top South Korean Universities" />
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            container: { center: true, padding: '1rem' },
+          },
+        },
+      };
+    </script>
+    <style>
+      :root { color-scheme: light; }
+      body { font-feature-settings: 'ss01' 1, 'cv09' 1; }
+      .fade-up { opacity: 0; transform: translateY(12px); transition: opacity .6s ease, transform .6s ease; }
+      .fade-up.show { opacity: 1; transform: translateY(0); }
+    </style>
+  </head>
+  <body class="antialiased text-neutral-900 bg-white font-sans">
+    <!-- Navbar -->
+    <header id="navbar" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300">
+      <div class="container">
+        <div class="flex h-16 items-center justify-between">
+          <a href="#bosh-sahifa" class="flex items-center gap-2 font-semibold tracking-tight text-neutral-900">
+            <span class="inline-block h-6 w-6 rounded-md bg-neutral-900"></span>
+            <span class="text-lg" data-i18n="brand">Unibridge</span>
+          </a>
+
+          <nav class="hidden md:flex items-center gap-8 text-sm">
+            <a href="#bosh-sahifa" class="hover:opacity-70 transition" data-i18n="nav.home">Bosh Sahifa</a>
+            <a href="#dasturlar" class="hover:opacity-70 transition" data-i18n="nav.programs">Dasturlar</a>
+            <a href="#xizmatlar" class="hover:opacity-70 transition" data-i18n="nav.services">Xizmatlar</a>
+            <a href="#universitetlar" class="hover:opacity-70 transition" data-i18n="nav.universities">Universitetlar</a>
+            <a href="#savollar" class="hover:opacity-70 transition" data-i18n="nav.faq">Savollar</a>
+          </nav>
+
+          <div class="flex items-center gap-3">
+            <a href="#apply" class="hidden md:inline-flex items-center rounded-full bg-neutral-900 px-4 py-2 text-white text-sm hover:bg-neutral-800 active:bg-neutral-900 transition" data-i18n="cta.apply">Apply Now</a>
+            <select id="lang" class="appearance-none rounded-full border border-neutral-200 bg-white px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900">
+              <option value="uz">Uz</option>
+              <option value="ru">RU</option>
+              <option value="en">EN</option>
+            </select>
+            <button id="menuBtn" class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-200 hover:bg-neutral-50 active:bg-neutral-100" aria-label="Menu">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobileMenu" class="md:hidden hidden pb-4">
+          <div class="mt-2 grid gap-2 text-sm">
+            <a href="#bosh-sahifa" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="nav.home">Bosh Sahifa</a>
+            <a href="#dasturlar" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="nav.programs">Dasturlar</a>
+            <a href="#xizmatlar" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="nav.services">Xizmatlar</a>
+            <a href="#universitetlar" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="nav.universities">Universitetlar</a>
+            <a href="#savollar" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="nav.faq">Savollar</a>
+            <a href="#apply" class="rounded-lg px-3 py-2 hover:bg-neutral-50" data-i18n="cta.apply">Apply Now</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <section id="bosh-sahifa" class="relative isolate pt-28 md:pt-36 pb-16 md:pb-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl text-center fade-up">
+          <h1 class="text-4xl md:text-6xl font-semibold tracking-tight leading-tight" data-i18n="hero.title">Unibridge Consulting</h1>
+          <p class="mt-4 text-base md:text-lg text-neutral-600" data-i18n="hero.subtitle">Helping students connect with top South Korean Universities</p>
+          <div class="mt-8">
+            <a href="#apply" class="inline-flex items-center rounded-full bg-neutral-900 px-6 py-3 text-white hover:bg-neutral-800 active:bg-neutral-900 transition" data-i18n="cta.apply">Apply Now</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Programs / Dasturlar -->
+    <section id="dasturlar" class="py-16 md:py-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl text-center fade-up">
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight" data-i18n="programs.title">Dasturlar</h2>
+          <p class="mt-3 text-neutral-600" data-i18n="programs.subtitle">Kollej, Bakalavr, Magistratura</p>
+        </div>
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          <!-- College -->
+          <div class="fade-up group rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="m3 7 9-4 9 4-9 4-9-4z"/><path stroke-linecap="round" stroke-linejoin="round" d="m3 7 9 4 9-4M3 7v6c0 1.657 3.134 3 7 3s7-1.343 7-3V7"/></svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold" data-i18n="programs.college.title">Kollej</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="programs.college.desc">Kasb-hunar va tayyorgarlik dasturlari.</p>
+          </div>
+          <!-- Bachelor -->
+          <div class="fade-up group rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 10h16M4 14h10M6 18h6"/></svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold" data-i18n="programs.bachelor.title">Bakalavr</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="programs.bachelor.desc">Bakalavr yo'nalishlari uchun qabul va maslahatlar.</p>
+          </div>
+          <!-- Masters -->
+          <div class="fade-up group rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h10M7 16h5"/></svg>
+            </div>
+            <h3 class="mt-4 text-lg font-semibold" data-i18n="programs.masters.title">Magistratura</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="programs.masters.desc">Ilmiy izlanishlar va magistratura qabul jarayonlari.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services / Xizmatlar -->
+    <section id="xizmatlar" class="py-16 md:py-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl text-center fade-up">
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight" data-i18n="services.title">Xizmatlar</h2>
+          <p class="mt-3 text-neutral-600" data-i18n="services.subtitle">Minimalistik yondashuv, aniq natija</p>
+        </div>
+        <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+          <!-- Consulting -->
+          <div class="fade-up rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h8M6 11h12M10 15h4"/></svg>
+            </div>
+            <h3 class="mt-4 text-base font-semibold" data-i18n="services.consulting.title">Konsalting</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="services.consulting.desc">Yo'nalish tanlash va individual reja.</p>
+          </div>
+          <!-- Documents -->
+          <div class="fade-up rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 13h6M9 17h6M8 3h6l4 4v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/></svg>
+            </div>
+            <h3 class="mt-4 text-base font-semibold" data-i18n="services.documents.title">Hujjatlar</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="services.documents.desc">Hujjat tayyorlash va tarjima ko'magi.</p>
+          </div>
+          <!-- Admission -->
+          <div class="fade-up rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h16M7 7v10m10-10v10M4 17h16"/></svg>
+            </div>
+            <h3 class="mt-4 text-base font-semibold" data-i18n="services.admission.title">Qabul</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="services.admission.desc">Universitet arizalarini to'ldirish va yuborish.</p>
+          </div>
+          <!-- Visa Support -->
+          <div class="fade-up rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition hover:shadow-md">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-neutral-900 text-white">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m-6-6h12"/></svg>
+            </div>
+            <h3 class="mt-4 text-base font-semibold" data-i18n="services.visa.title">Viza yordami</h3>
+            <p class="mt-2 text-neutral-600" data-i18n="services.visa.desc">Viza jarayonlari bo'yicha to'liq ko'mak.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Universities / Universitetlar -->
+    <section id="universitetlar" class="py-16 md:py-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl text-center fade-up">
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight" data-i18n="universities.title">Universitetlar</h2>
+          <p class="mt-3 text-neutral-600" data-i18n="universities.subtitle">Janubiy Koreya hamkor universitetlari</p>
+        </div>
+        <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 md:gap-8 items-center">
+          <!-- Placeholder logos -->
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+          <img class="fade-up h-10 w-full object-contain grayscale hover:grayscale-0 transition" src="https://dummyimage.com/240x120/eeeeee/888888&text=Logo" alt="University logo" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ / Savollar -->
+    <section id="savollar" class="py-16 md:py-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl text-center fade-up">
+          <h2 class="text-2xl md:text-3xl font-semibold tracking-tight" data-i18n="faq.title">Savollar</h2>
+          <p class="mt-3 text-neutral-600" data-i18n="faq.subtitle">Ko'p beriladigan savollarga javoblar</p>
+        </div>
+
+        <div class="mx-auto mt-10 max-w-2xl divide-y divide-neutral-200 rounded-2xl border border-neutral-200 bg-white">
+          <div class="accordion-item">
+            <button class="w-full px-5 py-4 text-left flex items-start justify-between gap-4" aria-expanded="false">
+              <span class="font-medium" data-i18n="faq.q1">Qabul jarayoni qanday?</span>
+              <svg class="h-5 w-5 shrink-0 transition" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="px-5 pb-4 hidden text-neutral-600" role="region">
+              <p data-i18n="faq.a1">Yo'nalish tanlash, hujjatlar tayyorlash, ariza topshirish va suhbat bosqichlari.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="w-full px-5 py-4 text-left flex items-start justify-between gap-4" aria-expanded="false">
+              <span class="font-medium" data-i18n="faq.q2">O'qish tili va stipendiyalar bormi?</span>
+              <svg class="h-5 w-5 shrink-0 transition" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="px-5 pb-4 hidden text-neutral-600" role="region">
+              <p data-i18n="faq.a2">Koreys va ingliz tillarida dasturlar mavjud, stipendiya imkoniyatlari ham bor.</p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <button class="w-full px-5 py-4 text-left flex items-start justify-between gap-4" aria-expanded="false">
+              <span class="font-medium" data-i18n="faq.q3">Viza jarayoni qancha vaqt oladi?</span>
+              <svg class="h-5 w-5 shrink-0 transition" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 8l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="px-5 pb-4 hidden text-neutral-600" role="region">
+              <p data-i18n="faq.a3">Odatda 4-8 hafta, hujjatlar to'liqligiga qarab o'zgaradi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Apply anchor -->
+    <section id="apply" class="py-16 md:py-24 bg-white">
+      <div class="container">
+        <div class="mx-auto max-w-3xl rounded-2xl border border-neutral-200 bg-white p-8 shadow-sm fade-up">
+          <h3 class="text-xl md:text-2xl font-semibold" data-i18n="apply.title">Ariza topshirish</h3>
+          <p class="mt-3 text-neutral-600" data-i18n="apply.subtitle">Qisqa forma orqali biz bilan bog'laning. Jamoamiz tezda javob beradi.</p>
+          <div class="mt-6 flex flex-col sm:flex-row gap-3">
+            <a href="mailto:hello@unibridge.example" class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-white hover:bg-neutral-800 transition" data-i18n="apply.email">Email orqali murojaat</a>
+            <a href="#" class="inline-flex items-center justify-center rounded-full border border-neutral-200 px-6 py-3 hover:bg-neutral-50 transition" data-i18n="apply.alt">Telegram orqali bog'lanish</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-neutral-200 bg-white py-10">
+      <div class="container">
+        <div class="flex flex-col items-center gap-6">
+          <nav class="flex items-center gap-6 text-sm text-neutral-600">
+            <a href="#" class="hover:text-neutral-900 transition" data-i18n="footer.about">About</a>
+            <a href="#apply" class="hover:text-neutral-900 transition" data-i18n="footer.contact">Contact</a>
+            <a href="#" class="hover:text-neutral-900 transition" data-i18n="footer.privacy">Privacy Policy</a>
+          </nav>
+          <div class="flex items-center gap-4 text-neutral-500">
+            <a href="#" aria-label="Instagram" class="hover:text-neutral-900 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            </a>
+            <a href="#" aria-label="Telegram" class="hover:text-neutral-900 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 3L3 11l6 2 2 6 10-16z" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="hover:text-neutral-900 transition">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 3h-3a4 4 0 0 0-4 4v3H6v4h2v7h4v-7h3l1-4h-4V7a1 1 0 0 1 1-1h3V3z"/></svg>
+            </a>
+          </div>
+          <p class="text-xs text-neutral-500">© <span id="year"></span> Unibridge</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Sticky navbar
+      const navbar = document.getElementById('navbar');
+      const setNavbarStyle = () => {
+        if (window.scrollY > 8) {
+          navbar.classList.add('bg-white/80','backdrop-blur','supports-[backdrop-filter]:bg-white/70','shadow-sm');
+        } else {
+          navbar.classList.remove('bg-white/80','backdrop-blur','supports-[backdrop-filter]:bg-white/70','shadow-sm');
+        }
+      };
+      setNavbarStyle();
+      window.addEventListener('scroll', setNavbarStyle, { passive: true });
+
+      // Mobile menu
+      const menuBtn = document.getElementById('menuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      menuBtn?.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+      mobileMenu?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.add('hidden')));
+
+      // Fade-up on view
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-up').forEach((el) => observer.observe(el));
+
+      // Accordion
+      document.querySelectorAll('.accordion-item').forEach((item) => {
+        const btn = item.querySelector('button');
+        const content = item.querySelector('[role="region"]');
+        btn?.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          btn.setAttribute('aria-expanded', String(!expanded));
+          content.classList.toggle('hidden');
+          btn.querySelector('svg')?.classList.toggle('rotate-180');
+        });
+      });
+
+      // i18n
+      const translations = {
+        uz: {
+          brand: 'Unibridge',
+          'nav.home': 'Bosh Sahifa',
+          'nav.programs': 'Dasturlar',
+          'nav.services': 'Xizmatlar',
+          'nav.universities': 'Universitetlar',
+          'nav.faq': 'Savollar',
+          'hero.title': 'Unibridge Consulting',
+          'hero.subtitle': 'Talabalarni Janubiy Koreya universitetlari bilan bog‘laymiz',
+          'cta.apply': 'Apply Now',
+          'programs.title': 'Dasturlar',
+          'programs.subtitle': 'Kollej, Bakalavr, Magistratura',
+          'programs.college.title': 'Kollej',
+          'programs.college.desc': 'Kasb-hunar va tayyorgarlik dasturlari.',
+          'programs.bachelor.title': 'Bakalavr',
+          'programs.bachelor.desc': 'Bakalavr yo\'nalishlari uchun qabul va maslahatlar.',
+          'programs.masters.title': 'Magistratura',
+          'programs.masters.desc': 'Ilmiy izlanishlar va magistratura qabul jarayonlari.',
+          'services.title': 'Xizmatlar',
+          'services.subtitle': 'Minimalistik yondashuv, aniq natija',
+          'services.consulting.title': 'Konsalting',
+          'services.consulting.desc': 'Yo\'nalish tanlash va individual reja.',
+          'services.documents.title': 'Hujjatlar',
+          'services.documents.desc': 'Hujjat tayyorlash va tarjima ko\'magi.',
+          'services.admission.title': 'Qabul',
+          'services.admission.desc': 'Universitet arizalarini to\'ldirish va yuborish.',
+          'services.visa.title': 'Viza yordami',
+          'services.visa.desc': 'Viza jarayonlari bo\'yicha to\'liq ko\'mak.',
+          'universities.title': 'Universitetlar',
+          'universities.subtitle': 'Janubiy Koreya hamkor universitetlari',
+          'faq.title': 'Savollar',
+          'faq.subtitle': 'Ko\'p beriladigan savollarga javoblar',
+          'faq.q1': 'Qabul jarayoni qanday?',
+          'faq.a1': 'Yo\'nalish tanlash, hujjatlar tayyorlash, ariza topshirish va suhbat bosqichlari.',
+          'faq.q2': 'O\'qish tili va stipendiyalar bormi?',
+          'faq.a2': 'Koreys va ingliz tillarida dasturlar mavjud, stipendiya imkoniyatlari ham bor.',
+          'faq.q3': 'Viza jarayoni qancha vaqt oladi?',
+          'faq.a3': 'Odatda 4-8 hafta, hujjatlar to\'liqligiga qarab o\'zgaradi.',
+          'apply.title': 'Ariza topshirish',
+          'apply.subtitle': 'Qisqa forma orqali biz bilan bog\'laning. Jamoamiz tezda javob beradi.',
+          'apply.email': 'Email orqali murojaat',
+          'apply.alt': 'Telegram orqali bog\'lanish',
+          'footer.about': 'About',
+          'footer.contact': 'Contact',
+          'footer.privacy': 'Privacy Policy',
+        },
+        ru: {
+          brand: 'Unibridge',
+          'nav.home': 'Главная',
+          'nav.programs': 'Программы',
+          'nav.services': 'Услуги',
+          'nav.universities': 'Университеты',
+          'nav.faq': 'Вопросы',
+          'hero.title': 'Unibridge Consulting',
+          'hero.subtitle': 'Помогаем поступать в ведущие университеты Южной Кореи',
+          'cta.apply': 'Подать заявку',
+          'programs.title': 'Программы',
+          'programs.subtitle': 'Колледж, Бакалавриат, Магистратура',
+          'programs.college.title': 'Колледж',
+          'programs.college.desc': 'Профессиональные и подготовительные программы.',
+          'programs.bachelor.title': 'Бакалавриат',
+          'programs.bachelor.desc': 'Поступление и консультации для бакалавров.',
+          'programs.masters.title': 'Магистратура',
+          'programs.masters.desc': 'Научные исследования и поступление в магистратуру.',
+          'services.title': 'Услуги',
+          'services.subtitle': 'Минимализм и чёткий результат',
+          'services.consulting.title': 'Консалтинг',
+          'services.consulting.desc': 'Выбор направления и персональный план.',
+          'services.documents.title': 'Документы',
+          'services.documents.desc': 'Подготовка и перевод документов.',
+          'services.admission.title': 'Поступление',
+          'services.admission.desc': 'Заполнение и подача заявок.',
+          'services.visa.title': 'Визовая поддержка',
+          'services.visa.desc': 'Полное сопровождение визового процесса.',
+          'universities.title': 'Университеты',
+          'universities.subtitle': 'Партнерские университеты Южной Кореи',
+          'faq.title': 'Вопросы',
+          'faq.subtitle': 'Ответы на частые вопросы',
+          'faq.q1': 'Как проходит процесс поступления?',
+          'faq.a1': 'Выбор направления, подготовка документов, подача заявки и собеседование.',
+          'faq.q2': 'Есть ли обучение на английском и стипендии?',
+          'faq.a2': 'Есть программы на корейском и английском, доступны стипендии.',
+          'faq.q3': 'Сколько занимает оформление визы?',
+          'faq.a3': 'Обычно 4–8 недель, зависит от полноты документов.',
+          'apply.title': 'Подать заявку',
+          'apply.subtitle': 'Свяжитесь с нами, и мы быстро ответим.',
+          'apply.email': 'Написать на Email',
+          'apply.alt': 'Связаться в Telegram',
+          'footer.about': 'О нас',
+          'footer.contact': 'Контакты',
+          'footer.privacy': 'Политика конфиденциальности',
+        },
+        en: {
+          brand: 'Unibridge',
+          'nav.home': 'Home',
+          'nav.programs': 'Programs',
+          'nav.services': 'Services',
+          'nav.universities': 'Universities',
+          'nav.faq': 'FAQ',
+          'hero.title': 'Unibridge Consulting',
+          'hero.subtitle': 'Helping students connect with top South Korean Universities',
+          'cta.apply': 'Apply Now',
+          'programs.title': 'Programs',
+          'programs.subtitle': 'College, Bachelor, Masters',
+          'programs.college.title': 'College',
+          'programs.college.desc': 'Vocational and preparatory programs.',
+          'programs.bachelor.title': 'Bachelor',
+          'programs.bachelor.desc': 'Admissions and advising for bachelor studies.',
+          'programs.masters.title': 'Masters',
+          'programs.masters.desc': 'Research-focused and graduate admissions support.',
+          'services.title': 'Services',
+          'services.subtitle': 'Minimal design, clear outcomes',
+          'services.consulting.title': 'Consulting',
+          'services.consulting.desc': 'Pathway selection and personalized planning.',
+          'services.documents.title': 'Documents',
+          'services.documents.desc': 'Document preparation and translation.',
+          'services.admission.title': 'Admission',
+          'services.admission.desc': 'Application preparation and submission.',
+          'services.visa.title': 'Visa Support',
+          'services.visa.desc': 'Full assistance for visa processes.',
+          'universities.title': 'Universities',
+          'universities.subtitle': 'South Korean partner universities',
+          'faq.title': 'FAQ',
+          'faq.subtitle': 'Answers to common questions',
+          'faq.q1': 'How does the admission process work?',
+          'faq.a1': 'Choose a track, prepare documents, submit application, and interview.',
+          'faq.q2': 'Are there English programs and scholarships?',
+          'faq.a2': 'Programs exist in Korean and English; scholarships are available.',
+          'faq.q3': 'How long does the visa process take?',
+          'faq.a3': 'Typically 4–8 weeks, depending on documentation completeness.',
+          'apply.title': 'Apply',
+          'apply.subtitle': 'Contact us via a short form. We reply quickly.',
+          'apply.email': 'Contact via Email',
+          'apply.alt': 'Reach us on Telegram',
+          'footer.about': 'About',
+          'footer.contact': 'Contact',
+          'footer.privacy': 'Privacy Policy',
+        }
+      };
+
+      const applyTranslations = (lang) => {
+        document.documentElement.lang = lang;
+        const dict = translations[lang] || translations.uz;
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[key]) el.textContent = dict[key];
+        });
+      };
+
+      const langSelect = document.getElementById('lang');
+      langSelect?.addEventListener('change', (e) => applyTranslations(e.target.value));
+      // Initialize
+      applyTranslations('uz');
+
+      // Year
+      document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
