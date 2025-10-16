@@ -1,0 +1,154 @@
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+
+/* Apple-style smooth transitions */
+* {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+@theme {
+  --breakpoint-xxs: 21.25rem; /* COMMENT: 340px */
+  --breakpoint-xs: 23.125rem; /* COMMENT: 363px */
+  --breakpoint-xxl: 82.5rem; /* COMMENT: 1320px */
+  --color-picto-primary: #007AFF; /* Apple Blue */
+  --color-picto-primary-dark: #0056CC;
+  --color-soft-white: #FBFBFD; /* Apple Light Gray */
+  --color-soft-dark: #8E8E93; /* Apple Secondary Gray */
+  --color-apple-gray: #F2F2F7; /* Apple System Gray 6 */
+  --color-apple-text: #1D1D1F; /* Apple Primary Text */
+  --color-apple-secondary: #86868B; /* Apple Secondary Text */
+}
+
+/* Responsive spacing utilities */
+.responsive-padding {
+  @apply px-4 sm:px-6 lg:px-8;
+}
+
+.responsive-margin {
+  @apply mx-4 sm:mx-6 lg:mx-8;
+}
+
+/* Mobile-first responsive text sizes */
+.responsive-heading {
+  @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl;
+}
+
+.responsive-subheading {
+  @apply text-lg sm:text-xl md:text-2xl lg:text-3xl;
+}
+
+.responsive-body {
+  @apply text-sm sm:text-base lg:text-lg;
+}
+
+.btn-primary {
+  @apply bg-picto-primary border-0 text-white hover:bg-picto-primary-dark transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transform: translateY(0);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--color-apple-text);
+  background-color: var(--color-soft-white);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Smooth scrolling for hash links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Ensure proper scroll offset for fixed navbar */
+:target {
+  scroll-margin-top: 80px;
+}
+
+.content {
+  @apply max-xxl:w-full xxl:max-w-[1320px] xxl:mx-auto;
+}
+
+.section-title {
+  @apply font-bold text-3xl sm:text-4xl md:text-5xl;
+  color: var(--color-apple-text);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+/* Fade in animation for smooth transitions */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.center {
+  @apply flex justify-center items-center;
+}
+
+.introduction-background {
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 86, 204, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #FBFBFD 0%, #F8F9FA 100%);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 4rem;
+}
+
+.introduction-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(153, 41, 251, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(101, 15, 160, 0.05) 0%, transparent 50%);
+  animation: backgroundShift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.profile-background {
+  background: linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%);
+  position: relative;
+  padding: 2rem 0 4rem 0;
+}
+
+@keyframes backgroundShift {
+  0% {
+    transform: translateX(0) translateY(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(20px) translateY(-10px);
+    opacity: 0.8;
+  }
+}
+.blog-background {
+  background: radial-gradient(circle at -10% 0%, #da4df166 1%, transparent 25%),
+    radial-gradient(circle at 110% 30%, #c4f5e9b2 5%, transparent 25%);
+}
