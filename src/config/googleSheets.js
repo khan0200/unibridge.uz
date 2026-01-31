@@ -12,10 +12,10 @@
 export const GOOGLE_SCRIPT_CONFIG = {
   // Using the same Web App URL as the contact form
   WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbz1QNh2BqHp03QS7UvwcJ8YzsJS3o-hS1J975oVddoTAZIyrk65F_gXK-sCB1ywz0Q/exec',
-  
+
   // Default values for form submission
   DEFAULT_LEVEL: 'Bakalavr',
-  
+
   // Timeout for requests (in milliseconds)
   REQUEST_TIMEOUT: 10000
 };
@@ -25,7 +25,7 @@ export const GOOGLE_SCRIPT_CONFIG = {
 
 export const trackButtonClick = (buttonId, section) => {
   try {
-    // Google Analytics 4
+    // Google Analytics 4 (if enabled)
     if (typeof gtag !== 'undefined') {
       gtag('event', 'button_click', {
         button_id: buttonId,
@@ -34,18 +34,30 @@ export const trackButtonClick = (buttonId, section) => {
         event_label: `${section}_${buttonId}`
       });
     }
-    
+
     // Meta Pixel (Facebook)
     if (typeof fbq !== 'undefined') {
-      fbq('track', 'ButtonClick', {
+      // Custom event for general button clicks
+      fbq('trackCustom', 'ButtonClick', {
         button_id: buttonId,
         section: section,
         content_name: `${section}_${buttonId}`
       });
+
+      // Standard event mapping for specific actions
+      if (buttonId.includes('contact_phone') || buttonId.includes('social_')) {
+        fbq('track', 'Contact', {
+          content_category: section,
+          content_name: buttonId
+        });
+      }
     }
-    
+
     // Log for debugging
-    console.log('Button click tracked:', { buttonId, section });
+    console.log('Button click tracked:', {
+      buttonId,
+      section
+    });
   } catch (error) {
     console.error('Error tracking button click:', error);
   }
@@ -62,18 +74,21 @@ export const trackUniversityInteraction = (universityName, action) => {
         event_label: `${universityName}_${action}`
       });
     }
-    
+
     // Meta Pixel (Facebook)
     if (typeof fbq !== 'undefined') {
-      fbq('track', 'UniversityInteraction', {
+      fbq('trackCustom', 'UniversityInteraction', {
         university_name: universityName,
         action: action,
         content_name: `${universityName}_${action}`
       });
     }
-    
+
     // Log for debugging
-    console.log('University interaction tracked:', { universityName, action });
+    console.log('University interaction tracked:', {
+      universityName,
+      action
+    });
   } catch (error) {
     console.error('Error tracking university interaction:', error);
   }
@@ -89,17 +104,26 @@ export const trackFormSubmission = (formType, formData) => {
         event_label: formType
       });
     }
-    
+
     // Meta Pixel (Facebook) - Lead event
     if (typeof fbq !== 'undefined') {
       fbq('track', 'Lead', {
         content_name: formType,
         content_category: 'form_submission'
       });
+
+      // Also track as a generic form submission custom event
+      fbq('trackCustom', 'FormSubmit', {
+        form_type: formType,
+        status: 'success'
+      });
     }
-    
+
     // Log for debugging
-    console.log('Form submission tracked:', { formType, formData });
+    console.log('Form submission tracked:', {
+      formType,
+      formData
+    });
   } catch (error) {
     console.error('Error tracking form submission:', error);
   }
@@ -112,26 +136,28 @@ export const submitToGoogleSheets = async (formData) => {
   submitData.append('fullname', formData.name.trim());
   submitData.append('phone', formData.phone);
   submitData.append('level', GOOGLE_SCRIPT_CONFIG.DEFAULT_LEVEL);
-  submitData.append('message', formData.message?.trim() || 'Qo\'shimcha ma\'lumot yo\'q');
-  
+  submitData.append('message', (formData.message && formData.message.trim()) || 'Qo\'shimcha ma\'lumot yo\'q');
+
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), GOOGLE_SCRIPT_CONFIG.REQUEST_TIMEOUT);
-  
+
   try {
     const response = await fetch(GOOGLE_SCRIPT_CONFIG.WEB_APP_URL, {
       method: 'POST',
       body: submitData, // Send FormData directly without JSON headers
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
-    
+
     if (response.ok) {
-      return { success: true };
+      return {
+        success: true
+      };
     } else {
       throw new Error('Network response was not ok');
     }
-    
+
   } catch (error) {
     clearTimeout(timeoutId);
     if (error.name === 'AbortError') {
