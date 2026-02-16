@@ -18,6 +18,7 @@ const Universities = () => {
     const [universities, setUniversities] = useState([]);
     const [filteredUniversities, setFilteredUniversities] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [activeSearchTerm, setActiveSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
     const [paging, setPaging] = useState(false);
     const [selectedUniversity, setSelectedUniversity] = useState(null);
@@ -29,6 +30,7 @@ const Universities = () => {
     const [firstDoc, setFirstDoc] = useState(null);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [totalUniversities, setTotalUniversities] = useState(0);
     const [hasMore, setHasMore] = useState(true);
     const PAGE_LIMIT = 8;
 
@@ -108,6 +110,7 @@ const Universities = () => {
             const coll = collection(db, 'universities');
             const snapshot = await getCountFromServer(coll);
             const count = snapshot.data().count;
+            setTotalUniversities(count);
             setTotalPages(Math.ceil(count / PAGE_LIMIT));
         } catch (error) {
             console.error('Error fetching count:', error);
@@ -120,49 +123,50 @@ const Universities = () => {
         fetchUniversities();
     }, []);
 
-    // Filter universities based on search (Client side still for the current set)
-    // Note: To make search global with pagination, we'd need a different approach.
-    // However, if searching, we often want to clear pagination and show all matches.
-    // For now, let's keep it simple: Search resets to page 1 and fetches all matching names if searchTerm exists.
+    // Auto-reset when search is cleared
     useEffect(() => {
-        if (!searchTerm) {
-            // If search is cleared, reset to first page
-            if (page !== 1) {
-                setPage(1);
-                fetchUniversities();
-            }
+        if (searchTerm === '' && activeSearchTerm !== '') {
+            // Search was cleared, reset to paginated view
+            setActiveSearchTerm('');
+            setPage(1);
+            fetchUniversities();
+        }
+    }, [searchTerm, activeSearchTerm]);
+
+    // Manual search function
+    const handleSearch = async () => {
+        if (!searchTerm.trim()) {
+            // If search is empty, reset to paginated view
+            setActiveSearchTerm('');
+            setPage(1);
+            fetchUniversities();
             return;
         }
 
-        // If searching, we fetch all (since Firestore doesn't support easy global text search with pagination)
-        // But to keep it "un-depressing", we only do this if needed.
-        const searchUniversities = async () => {
-            setLoading(true);
-            try {
-                // Since we can't do middle-of-word search in Firestore without dedicated tools,
-                // we fetch all and filter locally for search, OR just do simple prefix.
-                // Fetching all for search is fine if the results are usually small.
-                const q = query(collection(db, 'universities'), orderBy('name', 'asc'));
-                const querySnapshot = await getDocs(q);
-                const all = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setActiveSearchTerm(searchTerm);
+        setLoading(true);
+        try {
+            const q = query(collection(db, 'universities'), orderBy('name', 'asc'));
+            const querySnapshot = await getDocs(q);
+            const all = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-                const filtered = all.filter(uni =>
-                    uni.name.toLowerCase().includes(searchTerm.toLowerCase())
-                );
-                setFilteredUniversities(filtered);
-                setHasMore(false); // Disable pagination during search
-            } catch (err) {
-                console.error(err);
-            }
-            setLoading(false);
-        };
+            const filtered = all.filter(uni =>
+                uni.name.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+            setFilteredUniversities(filtered);
+            setHasMore(false); // Disable pagination during search
+        } catch (err) {
+            console.error(err);
+        }
+        setLoading(false);
+    };
 
-        const timer = setTimeout(() => {
-            searchUniversities();
-        }, 500);
-
-        return () => clearTimeout(timer);
-    }, [searchTerm]);
+    // Handle Enter key press in search input
+    const handleSearchKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
 
     const handleNext = () => {
         if (hasMore) {
@@ -208,41 +212,57 @@ const Universities = () => {
     }
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-7xl mx-auto">
+        <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+            <div className="max-w-7xl mx-auto relative">
                 {/* Header */}
-                <div className="text-center mb-12">
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                <div className="text-center relative z-10">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 drop-shadow-sm">
                         Universitetlar
                     </h1>
 
                     {/* Search Input */}
-                    <div className="flex justify-center items-center mb-12">
-                        <div className="relative w-full sm:w-96">
+                    <div className="flex justify-center items-center mb-2">
+                        <div className="relative w-full sm:w-96 group">
                             <input
                                 type="text"
                                 placeholder="Universitet nomini qidiring..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full px-4 py-3 pl-12 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors shadow-sm"
+                                onKeyPress={handleSearchKeyPress}
+                                className="w-full px-4 py-4 pl-12 pr-14 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:outline-none transition-all shadow-sm hover:shadow-md bg-white/80 backdrop-blur-sm"
                             />
                             <FontAwesomeIcon
                                 icon={faSearch}
-                                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 transition-colors"
                             />
+                            <button
+                                onClick={handleSearch}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-3 py-2.5 rounded-xl transition-all active:scale-95 shadow-md hover:shadow-lg"
+                                aria-label="Search"
+                            >
+                                <FontAwesomeIcon icon={faSearch} className="text-base" />
+                            </button>
                         </div>
                     </div>
                 </div>
 
+                {/* Small Ghost Text Above Grid */}
+                <div className="flex justify-start mb-4 px-1 relative z-10">
+                    <span className="text-sm sm:text-lg font-bold text-blue-500/40 italic tracking-tight select-none">
+                        {totalUniversities} universitetlar
+                    </span>
+                </div>
+
+
                 {/* Universities Grid */}
-                <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 transition-opacity duration-300 ${paging ? 'opacity-50' : 'opacity-100'}`}>
+                <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 transition-opacity duration-300 relative z-10 ${paging ? 'opacity-50' : 'opacity-100'}`}>
                     {filteredUniversities.map((university) => (
                         <div
                             key={university.id}
-                            className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2 border border-gray-100"
+                            className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group hover:-translate-y-2 border border-gray-100 flex flex-col"
                         >
                             {/* University Logo */}
-                            <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-8 flex items-center justify-center h-32 sm:h-48 border-b border-gray-50">
+                            <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 p-3 sm:p-8 flex items-center justify-center h-28 sm:h-52 border-b border-gray-50">
                                 <img
                                     src={university.logo}
                                     alt={university.name}
@@ -251,18 +271,18 @@ const Universities = () => {
                             </div>
 
                             {/* University Info */}
-                            <div className="p-3 sm:p-5">
-                                <p className="text-[8px] sm:text-xs text-gray-500 uppercase tracking-wide mb-1 sm:mb-2 font-semibold">
+                            <div className="p-2.5 sm:p-5 flex flex-col flex-1">
+                                <p className="text-[7px] sm:text-xs text-gray-500 uppercase tracking-wide mb-1 sm:mb-2 font-semibold">
                                     UNIVERSITET
                                 </p>
-                                <h3 className="text-xs sm:text-lg font-bold text-gray-900 mb-4 sm:mb-6 min-h-[2.5rem] sm:min-h-[3rem] line-clamp-2 leading-tight">
+                                <h3 className="text-[10px] sm:text-base md:text-lg font-bold text-gray-900 mb-2 sm:mb-4 flex-1 leading-snug line-clamp-3">
                                     {university.name}
                                 </h3>
 
                                 {/* Details Button */}
                                 <button
                                     onClick={() => openModal(university)}
-                                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white font-bold py-2 sm:py-3 px-3 sm:px-6 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 sm:gap-2 transition-all duration-300 shadow-sm hover:shadow-xl active:scale-95 text-[10px] sm:text-base"
+                                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-indigo-800 text-white font-bold py-1.5 sm:py-3 px-2 sm:px-6 rounded-lg sm:rounded-xl flex items-center justify-center gap-1 sm:gap-2 transition-all duration-300 shadow-sm hover:shadow-xl active:scale-95 text-[9px] sm:text-base"
                                 >
                                     <span>Batafsil</span>
                                     <FontAwesomeIcon icon={faArrowRight} className="hidden sm:block group-hover:translate-x-1 transition-transform duration-300" />
@@ -273,20 +293,20 @@ const Universities = () => {
                 </div>
 
                 {/* Pagination Controls */}
-                {!searchTerm && filteredUniversities.length > 0 && (
-                    <div className="mt-12 flex flex-col items-center gap-4">
-                        <div className="flex items-center justify-center gap-4">
+                {!activeSearchTerm && filteredUniversities.length > 0 && (
+                    <div className="mt-12 flex flex-col items-center gap-2 sm:gap-4 relative z-10">
+                        <div className="flex items-center justify-center gap-2 sm:gap-4">
                             <button
                                 onClick={handlePrev}
                                 disabled={page === 1 || paging}
-                                className={`px-6 py-2 rounded-xl border-2 font-bold transition-all ${page === 1 || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
+                                className={`px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border-2 font-bold text-xs sm:text-base transition-all ${page === 1 || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
                             >
-                                <FontAwesomeIcon icon={faArrowRight} className="rotate-180 mr-2" />
+                                <FontAwesomeIcon icon={faArrowRight} className="rotate-180 mr-1 sm:mr-2 text-xs sm:text-sm" />
                                 Oldingi
                             </button>
 
                             <div className="flex items-center gap-2">
-                                <span className="px-4 py-2 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
+                                <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs sm:text-base">
                                     {page} / {totalPages}
                                 </span>
                             </div>
@@ -294,10 +314,10 @@ const Universities = () => {
                             <button
                                 onClick={handleNext}
                                 disabled={page >= totalPages || paging}
-                                className={`px-6 py-2 rounded-xl border-2 font-bold transition-all ${page >= totalPages || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
+                                className={`px-3 sm:px-6 py-1.5 sm:py-2 rounded-lg sm:rounded-xl border-2 font-bold text-xs sm:text-base transition-all ${page >= totalPages || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
                             >
                                 Keyingi
-                                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                                <FontAwesomeIcon icon={faArrowRight} className="ml-1 sm:ml-2 text-xs sm:text-sm" />
                             </button>
                         </div>
                         <p className="text-xs text-gray-400 font-medium">Jami {totalPages} sahifa mavjud</p>
@@ -323,15 +343,15 @@ const Universities = () => {
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Modal Header */}
-                        <div className="relative bg-gray-50 p-6 flex items-center gap-4 border-b">
+                        <div className="relative bg-gray-50 p-3 sm:p-6 flex items-center gap-2 sm:gap-4 border-b">
                             <button
                                 onClick={closeModal}
-                                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 flex items-center justify-center transition-colors"
+                                className="absolute top-2 right-2 sm:top-4 sm:right-4 w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600 flex items-center justify-center transition-colors"
                             >
-                                <FontAwesomeIcon icon={faTimes} size="sm" />
+                                <FontAwesomeIcon icon={faTimes} className="text-xs sm:text-sm" />
                             </button>
 
-                            <div className="w-16 h-16 bg-white rounded-xl p-2 flex items-center justify-center shadow-sm border shrink-0">
+                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-white rounded-lg sm:rounded-xl p-1.5 sm:p-2 flex items-center justify-center shadow-sm border shrink-0">
                                 <img
                                     src={selectedUniversity.logo}
                                     alt={selectedUniversity.name}
@@ -339,9 +359,9 @@ const Universities = () => {
                                 />
                             </div>
 
-                            <div className="text-gray-900">
-                                <p className="text-blue-600 text-[10px] uppercase tracking-widest font-bold mb-0.5">Universitet Ma'lumotlari</p>
-                                <h2 className="text-lg sm:text-xl font-black leading-tight line-clamp-2">{selectedUniversity.name}</h2>
+                            <div className="text-gray-900 pr-6 sm:pr-0">
+                                <p className="text-blue-600 text-[8px] sm:text-[10px] uppercase tracking-widest font-bold mb-0.5">Universitet Ma'lumotlari</p>
+                                <h2 className="text-sm sm:text-lg md:text-xl font-black leading-tight line-clamp-2">{selectedUniversity.name}</h2>
                             </div>
                         </div>
 
@@ -352,24 +372,24 @@ const Universities = () => {
                                 <div className="group">
                                     <button
                                         onClick={() => toggleAccordion('info')}
-                                        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors rounded-xl"
+                                        className="w-full flex items-center justify-between p-2.5 sm:p-4 hover:bg-gray-50 transition-colors rounded-lg sm:rounded-xl"
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeAccordion === 'info' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
-                                                <FontAwesomeIcon icon={faInfoCircle} className="text-sm" />
+                                        <div className="flex items-center gap-2 sm:gap-4">
+                                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${activeAccordion === 'info' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
+                                                <FontAwesomeIcon icon={faInfoCircle} className="text-xs sm:text-sm" />
                                             </div>
-                                            <h3 className={`text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'info' ? 'text-gray-900' : 'text-gray-600'}`}>
+                                            <h3 className={`text-xs sm:text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'info' ? 'text-gray-900' : 'text-gray-600'}`}>
                                                 INFORMATION
                                             </h3>
                                         </div>
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
-                                            className={`text-[10px] transition-all duration-300 ${activeAccordion === 'info' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
+                                            className={`text-[8px] sm:text-[10px] transition-all duration-300 ${activeAccordion === 'info' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
                                         />
                                     </button>
                                     {activeAccordion === 'info' && (
-                                        <div className="px-16 pb-6 animate-in slide-in-from-top-2 duration-300">
-                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-xs sm:text-sm font-medium">
+                                        <div className="px-8 sm:px-16 pb-4 sm:pb-6 animate-in slide-in-from-top-2 duration-300">
+                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-[11px] sm:text-xs md:text-sm font-medium">
                                                 {selectedUniversity.information}
                                             </p>
                                         </div>
@@ -380,24 +400,24 @@ const Universities = () => {
                                 <div className="group">
                                     <button
                                         onClick={() => toggleAccordion('majors')}
-                                        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors rounded-xl"
+                                        className="w-full flex items-center justify-between p-2.5 sm:p-4 hover:bg-gray-50 transition-colors rounded-lg sm:rounded-xl"
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeAccordion === 'majors' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
-                                                <FontAwesomeIcon icon={faBook} className="text-sm" />
+                                        <div className="flex items-center gap-2 sm:gap-4">
+                                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${activeAccordion === 'majors' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
+                                                <FontAwesomeIcon icon={faBook} className="text-xs sm:text-sm" />
                                             </div>
-                                            <h3 className={`text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'majors' ? 'text-gray-900' : 'text-gray-600'}`}>
+                                            <h3 className={`text-xs sm:text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'majors' ? 'text-gray-900' : 'text-gray-600'}`}>
                                                 MAJORS
                                             </h3>
                                         </div>
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
-                                            className={`text-[10px] transition-all duration-300 ${activeAccordion === 'majors' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
+                                            className={`text-[8px] sm:text-[10px] transition-all duration-300 ${activeAccordion === 'majors' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
                                         />
                                     </button>
                                     {activeAccordion === 'majors' && (
-                                        <div className="px-16 pb-6 animate-in slide-in-from-top-2 duration-300">
-                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-xs sm:text-sm font-medium">
+                                        <div className="px-8 sm:px-16 pb-4 sm:pb-6 animate-in slide-in-from-top-2 duration-300">
+                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-[11px] sm:text-xs md:text-sm font-medium">
                                                 {selectedUniversity.majors}
                                             </p>
                                         </div>
@@ -408,24 +428,24 @@ const Universities = () => {
                                 <div className="group">
                                     <button
                                         onClick={() => toggleAccordion('scholarships')}
-                                        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 transition-colors rounded-xl"
+                                        className="w-full flex items-center justify-between p-2.5 sm:p-4 hover:bg-gray-50 transition-colors rounded-lg sm:rounded-xl"
                                     >
-                                        <div className="flex items-center gap-4">
-                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center ${activeAccordion === 'scholarships' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
-                                                <FontAwesomeIcon icon={faTrophy} className="text-sm" />
+                                        <div className="flex items-center gap-2 sm:gap-4">
+                                            <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${activeAccordion === 'scholarships' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-600 group-hover:bg-gray-200'}`}>
+                                                <FontAwesomeIcon icon={faTrophy} className="text-xs sm:text-sm" />
                                             </div>
-                                            <h3 className={`text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'scholarships' ? 'text-gray-900' : 'text-gray-600'}`}>
+                                            <h3 className={`text-xs sm:text-sm font-bold tracking-wide transition-colors ${activeAccordion === 'scholarships' ? 'text-gray-900' : 'text-gray-600'}`}>
                                                 SCHOLARSHIPS
                                             </h3>
                                         </div>
                                         <FontAwesomeIcon
                                             icon={faChevronDown}
-                                            className={`text-[10px] transition-all duration-300 ${activeAccordion === 'scholarships' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
+                                            className={`text-[8px] sm:text-[10px] transition-all duration-300 ${activeAccordion === 'scholarships' ? 'rotate-180 text-blue-500' : 'text-gray-300'}`}
                                         />
                                     </button>
                                     {activeAccordion === 'scholarships' && (
-                                        <div className="px-16 pb-6 animate-in slide-in-from-top-2 duration-300">
-                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-xs sm:text-sm font-medium">
+                                        <div className="px-8 sm:px-16 pb-4 sm:pb-6 animate-in slide-in-from-top-2 duration-300">
+                                            <p className="text-gray-600 leading-relaxed whitespace-pre-line text-[11px] sm:text-xs md:text-sm font-medium">
                                                 {selectedUniversity.scholarships}
                                             </p>
                                         </div>
@@ -435,10 +455,10 @@ const Universities = () => {
                         </div>
 
                         {/* Modal Footer */}
-                        <div className="p-4 bg-gray-50 border-t flex justify-end">
+                        <div className="p-3 sm:p-4 bg-gray-50 border-t flex justify-end">
                             <button
                                 onClick={closeModal}
-                                className="px-6 py-2 bg-gray-900 text-white text-xs font-bold rounded-xl hover:bg-black transition-colors shadow-lg active:scale-95"
+                                className="px-4 sm:px-6 py-1.5 sm:py-2 bg-gray-900 text-white text-[11px] sm:text-xs font-bold rounded-lg sm:rounded-xl hover:bg-black transition-colors shadow-lg active:scale-95"
                             >
                                 Yopish
                             </button>
