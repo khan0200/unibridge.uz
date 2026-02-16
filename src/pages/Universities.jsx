@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, getDocs, query, orderBy } from 'firebase/firestore';
+import { collection, getDocs, query, orderBy, limit, startAfter, endBefore, limitToLast, where, getCountFromServer } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -19,46 +19,164 @@ const Universities = () => {
     const [filteredUniversities, setFilteredUniversities] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [loading, setLoading] = useState(true);
+    const [paging, setPaging] = useState(false);
     const [selectedUniversity, setSelectedUniversity] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [activeAccordion, setActiveAccordion] = useState(null);
 
-    // Fetch universities from Firestore
-    useEffect(() => {
-        const fetchUniversities = async () => {
-            try {
-                // Modified query to order by name since ranking is removed
-                const q = query(collection(db, 'universities'), orderBy('name', 'asc'));
-                const querySnapshot = await getDocs(q);
-                const universitiesData = querySnapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data()
-                }));
+    // Pagination state
+    const [lastDoc, setLastDoc] = useState(null);
+    const [firstDoc, setFirstDoc] = useState(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const PAGE_LIMIT = 8;
+
+    // Unified Fetch Function
+    const fetchUniversities = async (direction = 'initial') => {
+        try {
+            if (direction === 'initial') {
+                setLoading(true);
+            } else {
+                setPaging(true);
+            }
+
+            let q;
+            if (direction === 'next' && lastDoc) {
+                q = query(
+                    collection(db, 'universities'),
+                    orderBy('name', 'asc'),
+                    startAfter(lastDoc),
+                    limit(PAGE_LIMIT)
+                );
+            } else if (direction === 'prev' && firstDoc) {
+                q = query(
+                    collection(db, 'universities'),
+                    orderBy('name', 'asc'),
+                    endBefore(firstDoc),
+                    limitToLast(PAGE_LIMIT)
+                );
+            } else {
+                // Initial or Reset
+                q = query(
+                    collection(db, 'universities'),
+                    orderBy('name', 'asc'),
+                    limit(PAGE_LIMIT)
+                );
+            }
+
+            const querySnapshot = await getDocs(q);
+            const universitiesData = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+
+            // Track docs for pagination
+            if (querySnapshot.docs.length > 0) {
+                setFirstDoc(querySnapshot.docs[0]);
+                setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
                 setUniversities(universitiesData);
                 setFilteredUniversities(universitiesData);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching universities:', error);
-                setLoading(false);
-            }
-        };
 
+                // Check if there's potentially more (only for 'initial' and 'next')
+                if (universitiesData.length < PAGE_LIMIT) {
+                    setHasMore(false);
+                } else {
+                    setHasMore(true);
+                }
+            } else {
+                if (direction === 'initial') {
+                    setUniversities([]);
+                    setFilteredUniversities([]);
+                }
+                setHasMore(false);
+            }
+
+            setLoading(false);
+            setPaging(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } catch (error) {
+            console.error('Error fetching universities:', error);
+            setLoading(false);
+            setPaging(false);
+        }
+    };
+
+    // Fetch Total Count
+    const fetchTotalCount = async () => {
+        try {
+            const coll = collection(db, 'universities');
+            const snapshot = await getCountFromServer(coll);
+            const count = snapshot.data().count;
+            setTotalPages(Math.ceil(count / PAGE_LIMIT));
+        } catch (error) {
+            console.error('Error fetching count:', error);
+        }
+    };
+
+    // Initial Load
+    useEffect(() => {
+        fetchTotalCount();
         fetchUniversities();
     }, []);
 
-    // Filter universities based on search
+    // Filter universities based on search (Client side still for the current set)
+    // Note: To make search global with pagination, we'd need a different approach.
+    // However, if searching, we often want to clear pagination and show all matches.
+    // For now, let's keep it simple: Search resets to page 1 and fetches all matching names if searchTerm exists.
     useEffect(() => {
-        let filtered = universities;
-
-        // Filter by search term
-        if (searchTerm) {
-            filtered = filtered.filter(uni =>
-                uni.name.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+        if (!searchTerm) {
+            // If search is cleared, reset to first page
+            if (page !== 1) {
+                setPage(1);
+                fetchUniversities();
+            }
+            return;
         }
 
-        setFilteredUniversities(filtered);
-    }, [searchTerm, universities]);
+        // If searching, we fetch all (since Firestore doesn't support easy global text search with pagination)
+        // But to keep it "un-depressing", we only do this if needed.
+        const searchUniversities = async () => {
+            setLoading(true);
+            try {
+                // Since we can't do middle-of-word search in Firestore without dedicated tools,
+                // we fetch all and filter locally for search, OR just do simple prefix.
+                // Fetching all for search is fine if the results are usually small.
+                const q = query(collection(db, 'universities'), orderBy('name', 'asc'));
+                const querySnapshot = await getDocs(q);
+                const all = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+                const filtered = all.filter(uni =>
+                    uni.name.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+                setFilteredUniversities(filtered);
+                setHasMore(false); // Disable pagination during search
+            } catch (err) {
+                console.error(err);
+            }
+            setLoading(false);
+        };
+
+        const timer = setTimeout(() => {
+            searchUniversities();
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [searchTerm]);
+
+    const handleNext = () => {
+        if (hasMore) {
+            setPage(prev => prev + 1);
+            fetchUniversities('next');
+        }
+    };
+
+    const handlePrev = () => {
+        if (page > 1) {
+            setPage(prev => prev - 1);
+            fetchUniversities('prev');
+        }
+    };
 
     const openModal = (university) => {
         setSelectedUniversity(university);
@@ -117,7 +235,7 @@ const Universities = () => {
                 </div>
 
                 {/* Universities Grid */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
+                <div className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 transition-opacity duration-300 ${paging ? 'opacity-50' : 'opacity-100'}`}>
                     {filteredUniversities.map((university) => (
                         <div
                             key={university.id}
@@ -153,6 +271,38 @@ const Universities = () => {
                         </div>
                     ))}
                 </div>
+
+                {/* Pagination Controls */}
+                {!searchTerm && filteredUniversities.length > 0 && (
+                    <div className="mt-12 flex flex-col items-center gap-4">
+                        <div className="flex items-center justify-center gap-4">
+                            <button
+                                onClick={handlePrev}
+                                disabled={page === 1 || paging}
+                                className={`px-6 py-2 rounded-xl border-2 font-bold transition-all ${page === 1 || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
+                            >
+                                <FontAwesomeIcon icon={faArrowRight} className="rotate-180 mr-2" />
+                                Oldingi
+                            </button>
+
+                            <div className="flex items-center gap-2">
+                                <span className="px-4 py-2 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center font-bold">
+                                    {page} / {totalPages}
+                                </span>
+                            </div>
+
+                            <button
+                                onClick={handleNext}
+                                disabled={page >= totalPages || paging}
+                                className={`px-6 py-2 rounded-xl border-2 font-bold transition-all ${page >= totalPages || paging ? 'border-gray-100 text-gray-300 cursor-not-allowed' : 'border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white active:scale-95'}`}
+                            >
+                                Keyingi
+                                <FontAwesomeIcon icon={faArrowRight} className="ml-2" />
+                            </button>
+                        </div>
+                        <p className="text-xs text-gray-400 font-medium">Jami {totalPages} sahifa mavjud</p>
+                    </div>
+                )}
 
                 {/* No Results */}
                 {filteredUniversities.length === 0 && (
