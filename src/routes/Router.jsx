@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Loading from "../components/common/loading/Loading";
 const Home = lazy(() => import("../pages/Home"));
 const Registration = lazy(() => import("../pages/Registration"));
+const Universities = lazy(() => import("../pages/Universities"));
+const AddUniversity = lazy(() => import("../pages/AddUniversity"));
 const Main = lazy(() => import("../layouts/Main"));
 
 const repoName = import.meta.env.VITE_REPO_NAME || "";
@@ -26,6 +28,22 @@ export const router = createBrowserRouter(
           element: (
             <Suspense fallback={<Loading />}>
               <Registration />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/universities",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <Universities />
+            </Suspense>
+          ),
+        },
+        {
+          path: "/add-university",
+          element: (
+            <Suspense fallback={<Loading />}>
+              <AddUniversity />
             </Suspense>
           ),
         },

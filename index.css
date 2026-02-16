@@ -4,17 +4,17 @@
   themes: light --default, dark --prefersdark, cupcake;
 }
 
-/* Apple-style smooth transitions */
-* {
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
-  transition-duration: 300ms;
-}
+/* 
+ * REMOVED: * { transition: all 300ms } 
+ * This was causing ALL elements to animate on every property change,
+ * including layout reflows, scrollbar changes, and DOM updates.
+ * Transitions are now only applied to interactive elements via Tailwind classes.
+ */
 
 @theme {
-  --breakpoint-xxs: 21.25rem; /* COMMENT: 340px */
-  --breakpoint-xs: 23.125rem; /* COMMENT: 363px */
-  --breakpoint-xxl: 82.5rem; /* COMMENT: 1320px */
+  --breakpoint-xxs: 21.25rem; /* 340px */
+  --breakpoint-xs: 23.125rem; /* 363px */
+  --breakpoint-xxl: 82.5rem; /* 1320px */
   --color-picto-primary: #007AFF; /* Apple Blue */
   --color-picto-primary-dark: #0056CC;
   --color-soft-white: #FBFBFD; /* Apple Light Gray */
@@ -22,6 +22,14 @@
   --color-apple-gray: #F2F2F7; /* Apple System Gray 6 */
   --color-apple-text: #1D1D1F; /* Apple Primary Text */
   --color-apple-secondary: #86868B; /* Apple Secondary Text */
+}
+
+/* Targeted transition for interactive elements only */
+a, button, input, select, textarea,
+.btn, .card, [role="button"] {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+  transition-duration: 200ms;
 }
 
 /* Responsive spacing utilities */
@@ -47,15 +55,17 @@
 }
 
 .btn-primary {
-  @apply bg-picto-primary border-0 text-white hover:bg-picto-primary-dark transition-all duration-300 rounded-xl shadow-lg hover:shadow-xl;
+  @apply bg-picto-primary border-0 text-white hover:bg-picto-primary-dark rounded-xl shadow-lg hover:shadow-xl;
   font-weight: 600;
   letter-spacing: -0.01em;
   transform: translateY(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-primary:hover {
   transform: translateY(-1px);
 }
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   color: var(--color-apple-text);
@@ -126,8 +136,8 @@ html {
   right: 0;
   bottom: 0;
   background: 
-    radial-gradient(circle at 20% 80%, rgba(153, 41, 251, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(101, 15, 160, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(0, 86, 204, 0.05) 0%, transparent 50%);
   animation: backgroundShift 8s ease-in-out infinite alternate;
   pointer-events: none;
 }
@@ -148,7 +158,13 @@ html {
     opacity: 0.8;
   }
 }
+
 .blog-background {
   background: radial-gradient(circle at -10% 0%, #da4df166 1%, transparent 25%),
     radial-gradient(circle at 110% 30%, #c4f5e9b2 5%, transparent 25%);
+}
+
+/* Fix for modal backdrop in Tailwind v4 */
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }

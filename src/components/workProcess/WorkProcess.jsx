@@ -38,7 +38,7 @@ const workStepData = [
 const WorkProcess = () => {
   return (
     <div
-      className="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white"
+      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white"
       id="work-process"
     >
       <div className="max-w-7xl mx-auto">

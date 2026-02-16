@@ -1,39 +1,38 @@
-import { useEffect, useState } from "react";
-import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { animateScroll } from "react-scroll";
+import { useState, useEffect, useCallback } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const scrollToTop = () => {
-  animateScroll.scrollToTop(options); /* To Top */
-  //   animateScroll.scrollToBottom(options); /* To Bottom */
-};
-
-const options = {
-  duration: 500,
-  smooth: true,
-};
+import { faAngleUp } from "@fortawesome/free-solid-svg-icons";
 
 const ScrollToTop = () => {
-  const [position, setPosition] = useState(0);
+  const [showTopBtn, setShowTopBtn] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setPosition(window.scrollY);
+      setShowTopBtn(window.scrollY > 400);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, []);
 
   return (
-    <div className="flex justify-end relative  sm:me-10 z-10 transition-all">
-      <a
-        onClick={scrollToTop}
-        className={`fixed bottom-10 me-5 w-10 h-10 sm:w-12.5 sm:h-12.5 lg:w-15 lg:h-15 flex justify-center items-center rounded-full transition delay-150 duration-500 ease-in-out hover:scale-120 hover:cursor-pointer bg-picto-primary hover:bg-picto-primary-dark text-white ${
-          position < 200 && "scale-0"
-        }`}
-      >
-        <FontAwesomeIcon icon={faAngleUp} size="2xl" />
-      </a>
-    </div>
+    <>
+      {showTopBtn && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 right-6 z-40 w-12 h-12 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-full shadow-lg hover:shadow-xl flex items-center justify-center cursor-pointer"
+          style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
+          aria-label="Yuqoriga qaytish"
+        >
+          <FontAwesomeIcon icon={faAngleUp} className="text-lg" />
+        </button>
+      )}
+    </>
   );
 };
 

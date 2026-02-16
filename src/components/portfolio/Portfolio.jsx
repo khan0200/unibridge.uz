@@ -83,7 +83,7 @@ const projectData = [
     interview: "Yes",
     location: "Seoul, South Korea",
     notes: "Highly competitive admission. Most prestigious university in Korea",
-    majors: [{ name: "Business Administration", scholarships: { "IELTS 6.5/TOPIK 4": "$0-6000" }}],
+    majors: [{ name: "Business Administration", scholarships: { "IELTS 6.5/TOPIK 4": "$0-6000" } }],
     link: "#!",
   },
   {
@@ -98,11 +98,11 @@ const projectData = [
     location: "Seoul, South Korea",
     notes: "IELTS 6.5+/TOPIK 4+ (0-100%)",
     majors: [
-      { name: "Economics", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" }},
-      { name: "International Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" }},
-      { name: "Asian Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" }},
-      { name: "IT Designing (3D)", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" }},
-      { name: "Nano Science", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" }}
+      { name: "Economics", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" } },
+      { name: "International Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" } },
+      { name: "Asian Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" } },
+      { name: "IT Designing (3D)", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" } },
+      { name: "Nano Science", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5800" } }
     ],
     link: "#!",
   },
@@ -118,8 +118,8 @@ const projectData = [
     location: "Seoul, South Korea",
     notes: "1%, no KDB, no parents income",
     majors: [
-      { name: "International Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5000" }},
-      { name: "Global Entertainment", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5000" }}
+      { name: "International Studies", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5000" } },
+      { name: "Global Entertainment", scholarships: { "IELTS 6.5/TOPIK 4": "$0-5000" } }
     ],
     link: "#!",
   },
@@ -135,10 +135,10 @@ const projectData = [
     location: "Daejeon, South Korea",
     notes: "Full Scholarship provided, Research-focused institution",
     majors: [
-      { name: "Computer Science", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" }},
-      { name: "Electrical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" }},
-      { name: "Mechanical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" }},
-      { name: "Chemical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" }}
+      { name: "Computer Science", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" } },
+      { name: "Electrical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" } },
+      { name: "Mechanical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" } },
+      { name: "Chemical Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-4000" } }
     ],
     link: "#!",
   },
@@ -154,9 +154,9 @@ const projectData = [
     location: "Seoul, South Korea",
     notes: "1%, no KDB, no parents income",
     majors: [
-      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3700", "TOPIK 6 (100%)": "$0" }},
-      { name: "Data Science", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3700; $0" }},
-      { name: "International Studies", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3700; $0" }}
+      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3700", "TOPIK 6 (100%)": "$0" } },
+      { name: "Data Science", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3700; $0" } },
+      { name: "International Studies", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3700; $0" } }
     ],
     link: "#!"
   },
@@ -172,10 +172,10 @@ const projectData = [
     location: "Seoul, South Korea",
     notes: "Tourism education developed",
     majors: [
-      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3200; $2700; $2200" }},
-      { name: "Global Hospitality & Tourism", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" }},
-      { name: "International Studies", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" }},
-      { name: "Asian Studies", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" }}
+      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 4": "$0-3200; $2700; $2200" } },
+      { name: "Global Hospitality & Tourism", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" } },
+      { name: "International Studies", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" } },
+      { name: "Asian Studies", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3200", "IELTS 6.5/TOPIK 5 (30-100%)": "$2700", "IELTS 7+/TOPIK 6 (50-100%)": "$2200" } }
     ],
     link: "#!"
   },
@@ -191,9 +191,9 @@ const projectData = [
     location: "Seoul, South Korea",
     notes: "Partnership with Samsung 1%, no KDB, no parents income",
     majors: [
-      { name: "Global Business Administration", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3000", "IELTS 6.5/TOPIK 5 (30-100%)": "$3000", "IELTS 7+/TOPIK 6 (50-100%)": "$2500 (Spring only)" }},
-      { name: "Global Economics", scholarships: { "IELTS 6.5/TOPIK 4": "$0-3200; $2000; $800 (Spring only)" }},
-      { name: "Software Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-2400; $2400; $2000" }}
+      { name: "Global Business Administration", scholarships: { "IELTS 6.0/TOPIK 4 (30-100%)": "$0-3000", "IELTS 6.5/TOPIK 5 (30-100%)": "$3000", "IELTS 7+/TOPIK 6 (50-100%)": "$2500 (Spring only)" } },
+      { name: "Global Economics", scholarships: { "IELTS 6.5/TOPIK 4": "$0-3200; $2000; $800 (Spring only)" } },
+      { name: "Software Engineering", scholarships: { "IELTS 6.5/TOPIK 4": "$0-2400; $2400; $2000" } }
     ],
     link: "#!"
   },
@@ -209,8 +209,8 @@ const projectData = [
     location: "100 Inha-ro, Michuhol-gu, Incheon, South Korea",
     notes: "4 days lesson 1 single week. (Parent income needed for university)",
     majors: [
-      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 3": "$0-3000; $2500; $2000" }},
-      { name: "ISE (IT)", scholarships: { "IELTS 6.0/TOPIK 3 (30-100%)": "$0-3000", "IELTS 6.5/TOPIK 4 (40-50%)": "$2500", "IELTS 7+/TOPIK 5+ (80%+)": "$2000" }}
+      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 3": "$0-3000; $2500; $2000" } },
+      { name: "ISE (IT)", scholarships: { "IELTS 6.0/TOPIK 3 (30-100%)": "$0-3000", "IELTS 6.5/TOPIK 4 (40-50%)": "$2500", "IELTS 7+/TOPIK 5+ (80%+)": "$2000" } }
     ],
     link: "#!"
   },
@@ -226,8 +226,8 @@ const projectData = [
     location: "120 Neungdong-ro, Gwangjin District, Seoul, South Korea",
     notes: "1%, no KDB, no parents income",
     majors: [
-      { name: "International Commerce & Business", scholarships: { "IELTS 5.5/TOPIK 3 (30-100%)": "$0-2800", "IELTS 6.0/TOPIK 4 (40-50%)": "$2300", "IELTS 6.5+/TOPIK 5+ (80%+)": "$1800" }},
-      { name: "Computer Software", scholarships: { "IELTS 5.5/TOPIK 3": "$0-2800; $2300; $1800" }}
+      { name: "International Commerce & Business", scholarships: { "IELTS 5.5/TOPIK 3 (30-100%)": "$0-2800", "IELTS 6.0/TOPIK 4 (40-50%)": "$2300", "IELTS 6.5+/TOPIK 5+ (80%+)": "$1800" } },
+      { name: "Computer Software", scholarships: { "IELTS 5.5/TOPIK 3": "$0-2800; $2300; $1800" } }
     ],
     link: "#!"
   },
@@ -243,8 +243,8 @@ const projectData = [
     location: "1342 Seongnam-daero, Sujeong-gu, Seongnam-si, Gyeonggi-do, South Korea",
     notes: "4 days lesson 1 single week, first semester Korean language course",
     majors: [
-      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 3 (30-100%)": "$0-2500", "IELTS 6.5/TOPIK 4 (40-50%)": "$2000", "IELTS 7+/TOPIK 5+ (80%+)": "$1500" }},
-      { name: "Computer Engineering", scholarships: { "IELTS 6.0/TOPIK 3": "$0-2500; $2000; $1500" }}
+      { name: "Business Administration", scholarships: { "IELTS 6.0/TOPIK 3 (30-100%)": "$0-2500", "IELTS 6.5/TOPIK 4 (40-50%)": "$2000", "IELTS 7+/TOPIK 5+ (80%+)": "$1500" } },
+      { name: "Computer Engineering", scholarships: { "IELTS 6.0/TOPIK 3": "$0-2500; $2000; $1500" } }
     ],
     link: "#!"
   },
@@ -296,9 +296,9 @@ const projectData = [
       { name: "Business Administration", scholarship: "Available" },
       { name: "Computer Science", scholarship: "Available" }
     ],
-     link: "#!"
-   },
-   {
+    link: "#!"
+  },
+  {
     id: 14,
     image: chungnam,
     category: "UNIVERSITET",
@@ -329,9 +329,9 @@ const projectData = [
       { name: "Business Administration", scholarship: "Available" },
       { name: "Korean Studies", scholarship: "Available" }
     ],
-     link: "#!"
-   },
-   {
+    link: "#!"
+  },
+  {
     id: 16,
     image: dongA,
     category: "UNIVERSITET",
@@ -373,7 +373,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Dongwon Institute of Science and Technology",
     description: "Amaliy fanlar va texnologiya sohasida ta'lim beruvchi institut.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Ha",
     location: "Yangsan, South Gyeongsang",
@@ -409,7 +409,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Induk University",
     description: "Seulda joylashgan, muhandislik va dizayn sohasida ixtisoslashgan universitet.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Ha",
     location: "Seoul (Nowon-gu)",
@@ -501,7 +501,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Seojeong University",
     description: "Yangju shahrida joylashgan, amaliy fanlar va texnologiya sohasida ta'lim beradi.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Yo'q",
     location: "Yangju, Gyeonggi",
@@ -590,7 +590,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Mokpo National University",
     description: "Mokpo shahrida joylashgan davlat universiteti, dengiz fanlari sohasida kuchli.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Yo'q",
     location: "Muan, Jeollanam-do",
@@ -608,7 +608,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Daewon University College",
     description: "Jecheon shahrida joylashgan, amaliy kasbiy ta'lim beruvchi kollej.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Yo'q",
     location: "Jecheon, North Chungcheong",
@@ -626,7 +626,7 @@ const projectData = [
     category: "UNIVERSITET | KOLLEJ",
     title: "Kunjang University College",
     description: "Gunsan shahrida joylashgan, amaliy kasbiy ta'lim va texnologiya sohasida ixtisoslashgan.",
-    
+
     languageReq: "IELTS: 5.5 / TOPIK: 2 / SKA: 220+",
     interview: "Ha",
     location: "Gunsan, North Jeolla",
@@ -648,14 +648,14 @@ const Portfolio = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUniversity, setSelectedUniversity] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+
   const universitiesPerPage = 8;
 
   // Custom university order as specified by user
   const universityOrder = [
     // TOP Universities
     "Seoul National University",
-    "Yonsei University", 
+    "Yonsei University",
     "Korea University",
     "KAIST",
     "Hanyang University",
@@ -699,11 +699,11 @@ const Portfolio = () => {
   const filteredUniversities = useMemo(() => {
     let filtered = projectData.filter((university) => {
       const matchesSearch = university.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           university.description.toLowerCase().includes(searchTerm.toLowerCase());
-      
-      const matchesCategory = selectedCategory === "" || 
-                             (selectedCategory === "kasbiy" && university.category === "UNIVERSITET | KOLLEJ");
-      
+        university.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const matchesCategory = selectedCategory === "" ||
+        (selectedCategory === "kasbiy" && university.category === "UNIVERSITET | KOLLEJ");
+
       return matchesSearch && matchesCategory;
     });
 
@@ -731,15 +731,15 @@ const Portfolio = () => {
   const handlePageChange = (page) => {
     setCurrentPage(page);
     const universitetlarElement = document.getElementById('universitetlar');
-        if (universitetlarElement) {
-          universitetlarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (universitetlarElement) {
+      universitetlarElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   const openModal = (university) => {
     // Track university interaction
     trackUniversityInteraction(university.title, 'modal_open');
-    
+
     const universityWithFee = {
       ...university,
       applicationFee: applicationFees[university.title] || 'N/A'
@@ -761,7 +761,7 @@ const Portfolio = () => {
       <div className="xl:mb-17.5 mb-5">
         <div className="max-sm:px-2 text-center mx-auto max-w-144.25">
           <p className="section-title ">Universitetlar</p>
-          
+
           {/* Search and Filter Section */}
           <div className="max-w-4xl mx-auto mb-8 mt-8">
             {/* Desktop Layout - One Row */}
@@ -793,7 +793,7 @@ const Portfolio = () => {
                 Tozalash
               </button>
             </div>
-            
+
             {/* Mobile Layout - Two Rows */}
             <div className="md:hidden">
               {/* First Row - Search Bar */}
@@ -806,7 +806,7 @@ const Portfolio = () => {
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-700"
                 />
               </div>
-              
+
               {/* Second Row - Filters */}
               <div className="flex gap-2 mb-4">
                 <select
@@ -830,7 +830,7 @@ const Portfolio = () => {
                 </button>
               </div>
             </div>
-            
+
             {/* Results Count */}
             <p className="text-gray-600 text-sm text-center">
               {filteredUniversities.length} ta universitet topildi
@@ -838,31 +838,31 @@ const Portfolio = () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto flex justify-center">
-        <div className="grid lg:grid-cols-4 grid-cols-2 gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
           {currentUniversities.map((data, index) => (
             <Projects data={data} key={index} onDetailsClick={() => openModal(data)} />
           ))}
         </div>
       </div>
-      
+
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="pagination-container text-center mt-8">
           <nav>
             <div className="flex justify-center items-center space-x-2">
-              <button 
+              <button
                 className={`px-3 py-2 rounded-lg ${currentPage === 1 ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
               >
                 Oldingi
               </button>
-              
+
               {[...Array(totalPages)].map((_, index) => {
                 const page = index + 1;
                 return (
-                  <button 
+                  <button
                     key={page}
                     className={`px-3 py-2 rounded-lg ${currentPage === page ? 'bg-blue-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
                     onClick={() => handlePageChange(page)}
@@ -871,8 +871,8 @@ const Portfolio = () => {
                   </button>
                 );
               })}
-              
-              <button 
+
+              <button
                 className={`px-3 py-2 rounded-lg ${currentPage === totalPages ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-blue-500 text-white hover:bg-blue-600'}`}
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
@@ -880,7 +880,7 @@ const Portfolio = () => {
                 Keyingi
               </button>
             </div>
-            
+
             <div className="mt-3">
               <small className="text-gray-600">
                 {startIndex + 1}-{Math.min(endIndex, filteredUniversities.length)} / {filteredUniversities.length} ta universitet
@@ -889,7 +889,7 @@ const Portfolio = () => {
           </nav>
         </div>
       )}
-      
+
       {/* No Results Message */}
       {filteredUniversities.length === 0 && (
         <div className="text-center py-12">
@@ -897,11 +897,11 @@ const Portfolio = () => {
           <p className="text-gray-400 text-sm mt-2">Qidiruv shartlarini o'zgartirib ko'ring</p>
         </div>
       )}
-      
 
-      
+
+
       {/* University Modal */}
-      <UniversityModal 
+      <UniversityModal
         isOpen={isModalOpen}
         onClose={closeModal}
         university={selectedUniversity}

@@ -4,12 +4,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../../../University logos/Logo.png";
 
 const navItems = [
-  { id: 1, name: "Bosh sahifa", url: "introduction" },
-  { id: 2, name: "Biz haqimizda", url: "profile" },
-  { id: 3, name: "Xizmatlar", url: "services" },
-  { id: 4, name: "Jarayon", url: "work-process" },
-  { id: 5, name: "Universitetlar", url: "universitetlar" },
-  { id: 6, name: "Aloqa", url: "contact" },
+  { id: 1, name: "Bosh sahifa", url: "introduction", type: "scroll" },
+  { id: 2, name: "Biz haqimizda", url: "profile", type: "scroll" },
+  { id: 3, name: "Xizmatlar", url: "services", type: "scroll" },
+  { id: 4, name: "Jarayon", url: "work-process", type: "scroll" },
+  { id: 5, name: "Universitetlar", url: "/universities", type: "page" },
+  { id: 6, name: "Aloqa", url: "contact", type: "scroll" },
 ];
 
 const NavBarMenu = () => {
@@ -17,34 +17,43 @@ const NavBarMenu = () => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
-  const handleMenuClick = (url) => {
-    console.log('=== ALOQA NAVIGATION DEBUG ===');
-    console.log('Clicked URL:', url);
+  const handleMenuClick = (item) => {
+    console.log('=== MENU NAVIGATION DEBUG ===');
+    console.log('Clicked Item:', item);
     console.log('Is Home Page:', isHomePage);
     console.log('Current Location:', location.pathname, location.hash);
-    
+
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
     }
-    
+
+    // Handle page navigation (for /universities, etc.)
+    if (item.type === 'page') {
+      console.log('Navigating to page:', item.url);
+      navigate(item.url);
+      return;
+    }
+
+    // Handle scroll navigation (for sections on home page)
+    const url = item.url;
     const scrollToSection = (sectionId) => {
       console.log('scrollToSection called with:', sectionId);
-      
+
       // Wait for DOM to be ready and find element with retry logic
       const findAndScroll = (attempts = 0) => {
         console.log(`Attempt ${attempts + 1} to find element:`, sectionId);
         const element = document.getElementById(sectionId);
         console.log('Element found:', element);
-        
+
         // Debug: Check all elements with similar IDs
         const allElements = document.querySelectorAll('[id*="bizning"], [id*="manzil"], [id*="contact"]');
         console.log('All related elements:', allElements);
-        
+
         if (element) {
           const elementTop = element.offsetTop;
           const navbarHeight = 80; // Approximate navbar height
           let offset = navbarHeight;
-          
+
           // Add centering offset for specific sections
           if (sectionId === 'introduction') {
             offset = navbarHeight + (window.innerHeight * 0.08); // 8% additional offset for introduction
@@ -61,7 +70,7 @@ const NavBarMenu = () => {
           } else if (sectionId === 'bizning-manzil') {
             offset = window.innerHeight * 0.07; // 7% for bizning-manzil section
           }
-          
+
           console.log('Scrolling to position:', elementTop - offset, 'Element top:', elementTop, 'Offset:', offset);
           window.scrollTo({
             top: elementTop - offset,
@@ -75,10 +84,10 @@ const NavBarMenu = () => {
           console.log('Element not found after 15 attempts');
         }
       };
-      
+
       findAndScroll();
     };
-    
+
     if (isHomePage) {
       // If on home page, scroll directly to section
       console.log('On home page, scrolling directly');
@@ -98,7 +107,7 @@ const NavBarMenu = () => {
   return navItems.map((item) => (
     <li key={item.id} onMouseDown={(e) => e.preventDefault()}>
       <button
-        onClick={() => handleMenuClick(item.url)}
+        onClick={() => handleMenuClick(item)}
         className={`hover:text-picto-primary px-5 py-3 mx-1 block cursor-pointer bg-transparent border-none text-inherit font-inherit`}
       >
         {item.name}
@@ -130,7 +139,7 @@ const NavBar = () => {
         const elementTop = element.offsetTop;
         const navbarHeight = 80; // Navbar height
         const additionalOffset = window.innerHeight * 0.08; // 8% of viewport height for better positioning
-        
+
         window.scrollTo({
           top: elementTop - navbarHeight - additionalOffset,
           behavior: 'smooth'
@@ -150,11 +159,11 @@ const NavBar = () => {
 
   return (
     <div
-      className={`sticky top-0 ${
-        position > 50
-          ? "bg-soft-white border-b border-gray-300"
-          : "bg-white border-white"
-      } z-50 transition-all duration-1000`}
+      className={`sticky top-0 z-50 ${position > 50
+        ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 py-2"
+        : "bg-white py-3"
+        }`}
+      style={{ transition: 'background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease' }}
     >
       <div className="navbar flex justify-between mx-auto content">
         <div className="flex items-center justify-between">
@@ -177,7 +186,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className={`menu menu-lg dropdown-content rounded-box z-1 mt-3 w-lvw p-2 shadow font-semibold flex-nowrap bg-white text-black`}
+              className="menu menu-lg dropdown-content rounded-2xl z-[60] mt-3 w-72 p-3 shadow-xl font-semibold flex-nowrap bg-white/95 backdrop-blur-xl text-black border border-gray-100"
             >
               <NavBarMenu />
             </ul>

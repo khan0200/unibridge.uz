@@ -22,18 +22,19 @@ const addressData = [
     icon: faLocationDot,
     title: "Andijon (Asosiy ofis)",
     description: "Andijon shahar, Yangi Bozor hududi, Boburshoh ko'chasi, Sakura binosi yaqinida, Malika biznes markazi",
-    mapLink: "https://www.google.com/maps/place/Unibridge/@40.7543111,72.3571851,180m/data=!3m1!1e3!4m14!1m7!3m6!1s0x38bced0017db5103:0x2ae57d69fa8f7358!2sUnibridge!8m2!3d40.7542855!4d72.3572351!16s%2Fg%2F11w_h2r0f0!3m5!1s0x38bced0017db5103:0x2ae57d69fa8f7358!8m2!3d40.7542855!4d72.3572351!16s%2Fg%2F11w_h2r0f0?entry=ttu&g_ep=EgoyMDI1MDgzMC4wIKXMDSoASAFQAw%3D%3D",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d180!2d72.3572351!3d40.7542855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bced0017db5103:0x2ae57d69fa8f7358!2sUnibridge!5e0!3m2!1sen!2s!4v1640995200000&gestureHandling=greedy",
+    mapLink: "https://www.google.com/maps/place/Unibridge/@40.7541634,72.3568036,19.28z/data=!4m6!3m5!1s0x38bced0017db5103:0x2ae57d69fa8f7358!8m2!3d40.7542855!4d72.3572351!16s%2Fg%2F11w_h2r0f0?entry=ttu&g_ep=EgoyMDI2MDIxMS4wIKXMDSoASAFQAw%3D%3D",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1295.4527280343857!2d72.35663707585562!3d40.75396479698116!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bced0017db5103%3A0x2ae57d69fa8f7358!2sUnibridge!5e0!3m2!1sen!2s!4v1771230924352!5m2!1sen!2s&gestureHandling=greedy",
     hasMap: true
   },
   {
     id: 'tashkent',
     icon: faLocationDot,
     title: "Toshkent filiali",
-    description: "Toshkent shahar, Massiv Sebzor, 1",
-    mapLink: "https://www.google.com/maps/place/Unibridge/@41.3310857,69.243349,599m/data=!3m1!1e3!4m14!1m7!3m6!1s0x38ae8b0018045457:0x11a9cc71baa3226a!2sUnibridge!8m2!3d41.331081!4d69.2453941!16s%2Fg%2F11xv85hpsy!3m5!1s0x38ae8b0018045457:0x11a9cc71baa3226a!8m2!3d41.331081!4d69.2453941!16s%2Fg%2F11xv85hpsy?entry=ttu&g_ep=EgoyMDI1MDgzMC4wIKXMDSoASAFQAw%3D%3D",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d599!2d69.2453941!3d41.331081!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0018045457:0x11a9cc71baa3226a!2sUnibridge!5e0!3m2!1sen!2s!4v1640995200000&gestureHandling=greedy",
-    hasMap: true
+    description: "Toshkent shahri, Novza metrosi yonida",
+    mapLink: "https://maps.app.goo.gl/H2QSPWJKv3ZdZ9R16",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d654.9355414834703!2d69.22477317962252!3d41.29303467104794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0018045457%3A0x11a9cc71baa3226a!2sUnibridge!5e0!3m2!1sen!2s!4v1771230989484!5m2!1sen!2s&gestureHandling=greedy",
+    hasMap: true,
+    phone: "+998-78-555-24-17"
   }
 ];
 
@@ -57,6 +58,7 @@ const Contact = () => {
         return (
           <div className="h-full min-h-[400px] rounded-lg overflow-hidden transition-all duration-700 ease-in-out transform animate-fadeIn">
             <iframe
+              key="andijon-map"
               src={andijanLocation.embedUrl}
               width="100%"
               height="100%"
@@ -74,6 +76,7 @@ const Contact = () => {
         return (
           <div className="h-full min-h-[400px] rounded-lg overflow-hidden transition-all duration-700 ease-in-out transform animate-fadeIn">
             <iframe
+              key="tashkent-map"
               src={tashkentLocation.embedUrl}
               width="100%"
               height="100%"
@@ -96,7 +99,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="py-16 sm:py-20 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white" id="contact">
+    <div className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white" id="contact">
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <div className="text-center mb-8 lg:mb-10">
@@ -110,130 +113,126 @@ const Contact = () => {
 
         <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl shadow-gray-300/20 border border-gray-100 p-6 lg:p-8">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
-          {/* Right Panel - Shows first on mobile */}
-          <div className="lg:w-1/2 order-1 lg:order-2 mb-6 lg:mb-0">
-            <div className="h-full min-h-[500px]">
-              {renderRightPanel()}
-            </div>
-          </div>
-
-          {/* Left Sidebar - Shows second on mobile */}
-          <div className="lg:w-1/2 order-2 lg:order-1 space-y-4 lg:space-y-6">
-            <div className="mb-6" id="bizning-manzil">
-              <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
-                Bizning manzillarimiz
-              </h3>
-              <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mb-4"></div>
-              <div className="flex items-center gap-3 bg-green-50 px-3 py-2 rounded-xl border border-green-200">
-                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                <p className="text-sm font-semibold text-green-800">
-                  Ish vaqti: 09:00-18:00
-                </p>
+            {/* Right Panel - Shows first on mobile */}
+            <div className="lg:w-1/2 order-1 lg:order-2 mb-6 lg:mb-0">
+              <div className="h-full min-h-[500px]">
+                {renderRightPanel()}
               </div>
             </div>
 
-            {/* Registration Button */}
-            <button
-              onClick={handleRegistrationClick}
-              className={`w-full mb-4 p-3 lg:p-4 rounded-2xl transition-all duration-300 text-left cursor-pointer transform hover:-translate-y-1 ${
-                activeView === 'form'
+            {/* Left Sidebar - Shows second on mobile */}
+            <div className="lg:w-1/2 order-2 lg:order-1 space-y-4 lg:space-y-6">
+              <div className="mb-6" id="bizning-manzil">
+                <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-3">
+                  Bizning manzillarimiz
+                </h3>
+                <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mb-4"></div>
+                <div className="flex items-center gap-3 bg-green-50 px-3 py-2 rounded-xl border border-green-200">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <p className="text-sm font-semibold text-green-800">
+                    Ish vaqti: 09:00-18:00
+                  </p>
+                </div>
+              </div>
+
+              {/* Registration Button */}
+              <button
+                onClick={handleRegistrationClick}
+                className={`w-full mb-4 p-3 lg:p-4 rounded-2xl transition-all duration-300 text-left cursor-pointer transform hover:-translate-y-1 ${activeView === 'form'
                   ? 'bg-blue-50 border-2 border-blue-300 shadow-lg'
                   : 'bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 hover:border-gray-300 shadow-md'
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <div className={`p-2 rounded-xl transition-colors ${
-                  activeView === 'form' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow-md'
-                }`}>
-                  <FontAwesomeIcon icon={faEnvelope} className="text-base" />
+                  }`}
+              >
+                <div className="flex items-center gap-3">
+                  <div className={`p-2 rounded-xl transition-colors ${activeView === 'form' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow-md'
+                    }`}>
+                    <FontAwesomeIcon icon={faEnvelope} className="text-base" />
+                  </div>
+                  <span className="text-lg lg:text-xl font-bold text-gray-900">Ro'yhatdan o'tish</span>
                 </div>
-                <span className="text-lg lg:text-xl font-bold text-gray-900">Ro'yhatdan o'tish</span>
-              </div>
-            </button>
+              </button>
 
-            {/* Address Locations */}
-            <div className="space-y-3 mb-6">
-              {addressData.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => handleLocationClick(item.id)}
-                  className={`w-full p-3 lg:p-4 rounded-2xl transition-all duration-300 text-left cursor-pointer transform hover:-translate-y-1 ${
-                    activeView === item.id
+              {/* Address Locations */}
+              <div className="space-y-3 mb-6">
+                {addressData.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => handleLocationClick(item.id)}
+                    className={`w-full p-3 lg:p-4 rounded-2xl transition-all duration-300 text-left cursor-pointer transform hover:-translate-y-1 ${activeView === item.id
                       ? 'bg-blue-50 border-2 border-blue-300 shadow-lg'
                       : 'bg-gray-50 border-2 border-gray-200 hover:bg-gray-100 hover:border-gray-300 shadow-md'
-                  }`}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className={`p-2 rounded-xl mt-1 transition-colors ${
-                      activeView === item.id ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow-md'
-                    }`}>
-                      <FontAwesomeIcon icon={item.icon} className="text-base" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center justify-between mb-1">
-                        <h3 className="text-base lg:text-lg font-bold text-gray-900">{item.title}</h3>
-                        <div className="flex items-center gap-1 text-xs text-blue-600 font-semibold">
-                          <FontAwesomeIcon icon={faMap} className="text-xs" />
-                          <span>Xarita</span>
-                        </div>
-                      </div>
-                      <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
-                    </div>
-                  </div>
-                </button>
-              ))}
-            </div>
-
-            {/* Phone */}
-            <div className="mb-6 p-3 lg:p-4 rounded-2xl bg-gray-50 border-2 border-gray-200 shadow-md">
-              <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-white text-gray-500 shadow-md">
-                  <FontAwesomeIcon icon={faPhone} className="text-base" />
-                </div>
-                <div>
-                  <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-1">Telefon</h3>
-                  <a 
-                    href="tel:+998931050011" 
-                    className="text-blue-600 hover:text-blue-700 transition-colors text-sm lg:text-base font-semibold"
-                    onClick={() => trackButtonClick('contact_phone', 'contact_section')}
+                      }`}
                   >
-                    +998 93 105-00-11
-                  </a>
+                    <div className="flex items-start gap-3">
+                      <div className={`p-2 rounded-xl mt-1 transition-colors ${activeView === item.id ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-gray-500 shadow-md'
+                        }`}>
+                        <FontAwesomeIcon icon={item.icon} className="text-base" />
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h3 className="text-base lg:text-lg font-bold text-gray-900">{item.title}</h3>
+                          <div className="flex items-center gap-1 text-xs text-blue-600 font-semibold">
+                            <FontAwesomeIcon icon={faMap} className="text-xs" />
+                            <span>Xarita</span>
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-600 leading-relaxed">{item.description}</p>
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+
+              {/* Phone */}
+              <div className="mb-6 p-3 lg:p-4 rounded-2xl bg-gray-50 border-2 border-gray-200 shadow-md">
+                <div className="flex items-center gap-3">
+                  <div className="p-2 rounded-xl bg-white text-gray-500 shadow-md">
+                    <FontAwesomeIcon icon={faPhone} className="text-base" />
+                  </div>
+                  <div>
+                    <h3 className="text-base lg:text-lg font-bold text-gray-900 mb-1">Telefon</h3>
+                    <a
+                      href="tel:+998785552417"
+                      className="text-blue-600 hover:text-blue-700 transition-colors text-sm lg:text-base font-semibold"
+                      onClick={() => trackButtonClick('contact_phone', 'contact_section')}
+                    >
+                      +998-78-555-24-17
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Social Media Links */}
-            <div className="flex gap-3">
-              <a
-                href="https://www.instagram.com/unibridge.uz/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
-              >
-                <FontAwesomeIcon icon={faInstagram} className="text-base" />
-                <span>Instagram</span>
-              </a>
-              <a
-                href="https://t.me/unibridge_uz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
-              >
-                <FontAwesomeIcon icon={faTelegram} className="text-base" />
-                <span>Telegram</span>
-              </a>
-              <a
-                href="https://www.youtube.com/@UnibridgeKoreya"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
-              >
-                <FontAwesomeIcon icon={faYoutube} className="text-base" />
-                <span>YouTube</span>
-              </a>
+              {/* Social Media Links */}
+              <div className="flex gap-3">
+                <a
+                  href="https://www.instagram.com/unibridge.uz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                >
+                  <FontAwesomeIcon icon={faInstagram} className="text-base" />
+                  <span>Instagram</span>
+                </a>
+                <a
+                  href="https://t.me/unibridge_uz"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                >
+                  <FontAwesomeIcon icon={faTelegram} className="text-base" />
+                  <span>Telegram</span>
+                </a>
+                <a
+                  href="https://www.youtube.com/@UnibridgeKoreya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                >
+                  <FontAwesomeIcon icon={faYoutube} className="text-base" />
+                  <span>YouTube</span>
+                </a>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>

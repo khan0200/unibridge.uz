@@ -41,7 +41,7 @@ const Introduction = () => {
   // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % carouselImages.length);
     }, 3000);
@@ -52,7 +52,7 @@ const Introduction = () => {
   // Loading bar progress
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     setProgress(0);
     const progressInterval = setInterval(() => {
       setProgress((prev) => {
@@ -83,23 +83,10 @@ const Introduction = () => {
       className="relative pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[80vh] flex items-center overflow-hidden"
       id="introduction"
     >
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-white to-purple-50/20 rounded-2xl"></div>
-      
-      {/* Floating Background Shapes */}
-      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-200/30 to-blue-300/20 rounded-full blur-2xl animate-float"></div>
-      <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-purple-200/30 to-purple-300/20 rounded-full blur-2xl animate-float-delayed"></div>
-      <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-br from-amber-200/30 to-orange-200/20 rounded-full blur-xl animate-float"></div>
-      
-      {/* Animated Grid Pattern */}
-      <div className="absolute inset-0 opacity-2">
-        <div className="grid grid-cols-12 gap-4 h-full">
-          {Array.from({ length: 48 }).map((_, i) => (
-            <div key={i} className="bg-gradient-to-br from-blue-400 to-purple-400 rounded animate-pulse" style={{ animationDelay: `${i * 0.1}s` }}></div>
-          ))}
-        </div>
-      </div>
-      
+      {/* Subtle decorative accents - reduced from 48 animated grid elements */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-blue-300/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-purple-200/15 to-purple-300/10 rounded-full blur-3xl"></div>
+
       <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full mt-8 sm:mt-12 lg:mt-16">
         {/* Left Content */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8">
@@ -136,22 +123,21 @@ const Introduction = () => {
             </Link>
           </div>
         </div>
-        
+
         {/* Right Image Carousel - Enhanced */}
         <div className="lg:col-span-5 order-first lg:order-last">
           <div className="relative max-w-md mx-auto lg:max-w-none">
             {/* Enhanced Background Effects */}
             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/15 to-purple-400/15 rounded-2xl blur-2xl transform rotate-3 scale-105 animate-float"></div>
             <div className="absolute inset-0 bg-gradient-to-tl from-amber-400/10 to-pink-400/10 rounded-2xl blur-xl transform -rotate-2 scale-110 animate-float-delayed"></div>
-            
-            {/* Floating Elements */}
-            <div className="absolute -top-4 -left-4 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full animate-bounce" style={{ animationDelay: '0.5s' }}></div>
-            <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-500 rounded-full animate-bounce" style={{ animationDelay: '1s' }}></div>
-            <div className="absolute top-1/2 -right-6 w-4 h-4 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full animate-bounce" style={{ animationDelay: '1.5s' }}></div>
-            
+
+            {/* Floating Elements - reduced from 3 */}
+            <div className="absolute -top-3 -left-3 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-60" style={{ animation: 'float 6s ease-in-out infinite' }}></div>
+            <div className="absolute -bottom-3 -right-3 w-5 h-5 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-full opacity-50" style={{ animation: 'float 6s ease-in-out infinite 2s' }}></div>
+
             {/* Carousel Container - Fixed Dimensions */}
             <div className="carousel-container relative bg-white/95 backdrop-blur-sm rounded-2xl p-4 sm:p-6 shadow-xl shadow-gray-300/25 border border-gray-100/50 floating-carousel">
-              <div 
+              <div
                 className="carousel-image-wrapper relative rounded-xl"
                 onMouseEnter={() => setIsAutoPlaying(false)}
                 onMouseLeave={() => setIsAutoPlaying(true)}
@@ -160,9 +146,8 @@ const Introduction = () => {
                 {carouselImages.map((image, index) => (
                   <div
                     key={image.id}
-                    className={`absolute inset-0 w-full h-full transition-opacity duration-500 flex items-center justify-center ${
-                      index === currentSlide ? 'opacity-100' : 'opacity-0'
-                    }`}
+                    className={`absolute inset-0 w-full h-full transition-opacity duration-500 flex items-center justify-center ${index === currentSlide ? 'opacity-100' : 'opacity-0'
+                      }`}
                   >
                     <img
                       className="carousel-image"
@@ -194,11 +179,10 @@ const Introduction = () => {
                     <button
                       key={index}
                       onClick={() => goToSlide(index)}
-                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                        index === currentSlide 
-                          ? 'bg-white shadow-sm' 
+                      className={`w-2 h-2 rounded-full transition-all duration-200 ${index === currentSlide
+                          ? 'bg-white shadow-sm'
                           : 'bg-white/40 hover:bg-white/60'
-                      }`}
+                        }`}
                       aria-label={`Rasm ${index + 1}`}
                     />
                   ))}
@@ -206,7 +190,7 @@ const Introduction = () => {
 
                 {/* Ultra-thin loading bar at bottom */}
                 <div className="absolute bottom-0 left-0 right-0 h-px bg-white/20">
-                  <div 
+                  <div
                     className="h-full bg-gradient-to-r from-blue-400 to-blue-600"
                     style={{ width: `${progress}%` }}
                   ></div>
