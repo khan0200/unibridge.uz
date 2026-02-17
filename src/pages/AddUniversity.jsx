@@ -14,6 +14,7 @@ const AddUniversity = () => {
 
     const [formData, setFormData] = useState({
         name: '',
+        levels: [], // Changed from 'level' to 'levels' array
         information: '',
         majors: '',
         scholarships: ''
@@ -25,6 +26,15 @@ const AddUniversity = () => {
             ...prev,
             [name]: name === 'name' ? value.toUpperCase() : value
         }));
+    };
+
+    const handleLevelChange = (level) => {
+        setFormData(prev => {
+            const levels = prev.levels.includes(level)
+                ? prev.levels.filter(l => l !== level)
+                : [...prev.levels, level];
+            return { ...prev, levels };
+        });
     };
 
     const handleFileChange = (e) => {
@@ -51,12 +61,18 @@ const AddUniversity = () => {
             return;
         }
 
+        if (formData.levels.length === 0) {
+            alert("Iltimos, kamida bitta darajani tanlang!");
+            return;
+        }
+
         setLoading(true);
 
         try {
             // Use university name as document ID
             await setDoc(doc(db, 'universities', formData.name), {
                 name: formData.name,
+                levels: formData.levels, // Save array of levels
                 logo: logoPreview, // Save Base64 string directly
                 information: formData.information,
                 majors: formData.majors,
@@ -70,6 +86,7 @@ const AddUniversity = () => {
             // Reset form
             setFormData({
                 name: '',
+                levels: [],
                 information: '',
                 majors: '',
                 scholarships: ''
@@ -141,6 +158,35 @@ const AddUniversity = () => {
                                 placeholder="Masalan: Seoul National University"
                                 className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
                             />
+                        </div>
+
+                        {/* Choose Levels */}
+                        <div>
+                            <label className="block text-sm font-semibold text-gray-700 mb-3">
+                                Choose Levels * <span className="text-xs text-gray-500 font-normal">(Select one or more)</span>
+                            </label>
+                            <div className="grid grid-cols-2 gap-3">
+                                {['COLLEGE', 'BACHELOR', 'MASTER E-VISA', 'MASTER NO CERTIFICATE', 'REGIONAL (Telex)', '1% TOP'].map((level) => (
+                                    <label
+                                        key={level}
+                                        className={`flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${formData.levels.includes(level)
+                                            ? 'border-blue-500 bg-blue-50'
+                                            : 'border-gray-200 hover:border-blue-300 hover:bg-gray-50'
+                                            }`}
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={formData.levels.includes(level)}
+                                            onChange={() => handleLevelChange(level)}
+                                            className="w-5 h-5 text-blue-600 rounded focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                                        />
+                                        <span className={`font-semibold text-sm ${formData.levels.includes(level) ? 'text-blue-700' : 'text-gray-700'
+                                            }`}>
+                                            {level}
+                                        </span>
+                                    </label>
+                                ))}
+                            </div>
                         </div>
 
                         {/* Logo Upload */}
