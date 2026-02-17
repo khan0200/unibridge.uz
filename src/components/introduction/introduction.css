@@ -1,0 +1,125 @@
+/* Introduction Section Animations and Styles */
+
+/* === Core Float Animation === */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+@keyframes float-delayed {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+/* Animation Classes */
+.animate-float {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 10s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+/* === Carousel Styles === */
+.floating-carousel {
+  animation: float 6s ease-in-out infinite;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08),
+    0 8px 16px -6px rgba(0, 0, 0, 0.04);
+}
+
+.carousel-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+
+.carousel-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0.75rem;
+}
+
+/* Responsive carousel height */
+@media (max-width: 640px) {
+  .carousel-image-wrapper {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-image-wrapper {
+    height: 250px;
+  }
+}
+
+/* === CTA Button Enhancement === */
+.enhanced-cta {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.enhanced-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(0, 122, 255, 0.2);
+}
+
+.enhanced-cta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+  transition: left 0.5s ease;
+}
+
+.enhanced-cta:hover::before {
+  left: 100%;
+}
+
+/* === Info Cards === */
+.info-card {
+  background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid rgba(0, 122, 255, 0.08);
+  border-radius: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(0, 122, 255, 0.1);
+}
