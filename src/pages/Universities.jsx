@@ -140,9 +140,7 @@ const Universities = () => {
 
     // Auto-search when level filter changes
     useEffect(() => {
-        if (selectedLevel) {
-            handleSearch();
-        }
+        handleSearch();
     }, [selectedLevel]);
 
     // Manual search function
@@ -317,7 +315,7 @@ const Universities = () => {
                 {/* Small Ghost Text Above Grid */}
                 <div className="flex justify-start mb-4 px-1 relative z-10">
                     <span className="text-sm sm:text-lg font-bold text-blue-500/40 italic tracking-tight select-none">
-                        {totalUniversities} universitetlar
+                        {(activeSearchTerm || selectedLevel) ? filteredUniversities.length : totalUniversities} universitetlar
                     </span>
                 </div>
 
