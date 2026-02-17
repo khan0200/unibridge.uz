@@ -245,16 +245,7 @@ const Universities = () => {
             <div className="max-w-7xl mx-auto relative">
                 {/* Header */}
                 <div className="text-center relative z-10">
-                    {/* Management Button */}
-                    <div className="flex justify-end mb-4">
-                        <button
-                            onClick={() => navigate('/manage-universities')}
-                            className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-bold py-3 px-6 rounded-xl transition-all active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
-                        >
-                            <FontAwesomeIcon icon={faCog} />
-                            Boshqarish
-                        </button>
-                    </div>
+
 
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 drop-shadow-sm">
                         Universitetlar
