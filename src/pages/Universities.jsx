@@ -252,7 +252,7 @@ const Universities = () => {
                     </h1>
 
                     {/* Search Input and Filter */}
-                    <div className="flex justify-center items-center mb-2 gap-3">
+                    <div className="flex flex-col sm:flex-row justify-center items-center mb-2 gap-3 w-full max-w-2xl mx-auto">
                         {/* Search Bar */}
                         <div className="relative w-full sm:w-96 group">
                             <input
@@ -277,11 +277,11 @@ const Universities = () => {
                         </div>
 
                         {/* Level Filter */}
-                        <div className="relative group">
+                        <div className="relative group w-full sm:w-auto">
                             <select
                                 value={selectedLevel}
                                 onChange={(e) => setSelectedLevel(e.target.value)}
-                                className="appearance-none px-4 py-4 pl-11 pr-10 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:outline-none transition-all shadow-sm hover:shadow-md bg-white/80 backdrop-blur-sm font-medium text-gray-700 cursor-pointer min-w-[180px]"
+                                className="appearance-none w-full sm:w-auto px-4 py-4 pl-11 pr-10 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:outline-none transition-all shadow-sm hover:shadow-md bg-white/80 backdrop-blur-sm font-medium text-gray-700 cursor-pointer min-w-[180px]"
                             >
                                 <option value="">All Levels</option>
                                 <option value="COLLEGE">COLLEGE</option>
