@@ -16,7 +16,7 @@ const telegramSVG = (
 );
 
 const commonClass =
-  "w-full px-3 py-2 bg-white/80 backdrop-blur-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 placeholder:text-gray-500 text-gray-900 shadow-sm hover:shadow-md text-sm";
+  "form-control-pro placeholder:text-gray-500";
 
 const Form = () => {
   const [phoneNumber, setPhoneNumber] = useState("+998 ");
@@ -153,7 +153,7 @@ const Form = () => {
     }
   };
   return (
-    <div className="p-4 bg-white/60 backdrop-blur-md rounded-xl border border-white/20 shadow-xl">
+    <div className="surface-panel p-5 sm:p-6">
       <div className="text-center mb-6">
         <h3 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
           Ro'yhatdan o'tish
@@ -229,7 +229,7 @@ const Form = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full mt-4 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+            className={`w-full mt-4 btn-cta text-sm ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
           >
             {isSubmitting ? 'Yuborilmoqda...' : 'Yuborish'} {telegramSVG}
           </button>

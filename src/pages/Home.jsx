@@ -23,21 +23,9 @@ const Home = () => {
         const element = document.getElementById(sectionId);
         
         if (element) {
-          const elementTop = element.offsetTop;
-          const navbarHeight = 80; // Approximate navbar height
-          let offset = navbarHeight;
-          
-          // Add centering offset for specific sections
-          if (['profile', 'services', 'work-process', 'universitetlar'].includes(sectionId)) {
-            offset = window.innerHeight * 0.15; // 15% of viewport height for better centering
-          } else if (sectionId === 'contact') {
-            // For contact section, scroll to show the bizning-manzil part
-            offset = window.innerHeight * 0.1; // 10% for contact section to show bizning-manzil
-          }
-          
-          window.scrollTo({
-            top: elementTop - offset,
-            behavior: 'smooth'
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
           });
         } else if (attempts < 20) {
           // Retry up to 20 times with 150ms intervals for better reliability

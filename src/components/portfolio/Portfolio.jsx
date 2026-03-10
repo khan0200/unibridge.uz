@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import Projects from "./Projects";
 import UniversityModal from "./UniversityModal";
-import { trackUniversityInteraction, trackButtonClick } from "../../config/googleSheets";
+import { trackUniversityInteraction } from "../../config/googleSheets";
 import yonsei from "../../assets/images/Yonsei.png";
 import korea from "../../assets/images/Korea_University_Global_Symbol.png";
 import seoul from "../../assets/images/Seoul National University.png";
@@ -755,15 +755,15 @@ const Portfolio = () => {
 
   return (
     <div
-      className="content mt-6 md:mt-8 xl:mt-12 mb-6 md:mb-12 max-xxl:p-2"
+      className="scroll-section section-shell bg-white"
       id="universitetlar"
     >
-      <div className="xl:mb-17.5 mb-5">
-        <div className="max-sm:px-2 text-center mx-auto max-w-144.25">
+      <div className="layout-container mb-10 sm:mb-12">
+        <div className="text-center mx-auto max-w-5xl">
           <p className="section-title ">Universitetlar</p>
 
           {/* Search and Filter Section */}
-          <div className="max-w-4xl mx-auto mb-8 mt-8">
+          <div className="max-w-4xl mx-auto mt-8">
             {/* Desktop Layout - One Row */}
             <div className="hidden md:flex items-center justify-center gap-4 mb-4">
               <input
@@ -838,7 +838,7 @@ const Portfolio = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="layout-container">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
           {currentUniversities.map((data, index) => (
             <Projects data={data} key={index} onDetailsClick={() => openModal(data)} />

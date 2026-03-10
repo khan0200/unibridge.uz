@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-scroll";
 import { useNavigate, useLocation } from "react-router-dom";
 import logo from "../../../../University logos/Logo.png";
 
@@ -18,10 +17,6 @@ const NavBarMenu = () => {
   const isHomePage = location.pathname === '/';
 
   const handleMenuClick = (item) => {
-    console.log('=== MENU NAVIGATION DEBUG ===');
-    console.log('Clicked Item:', item);
-    console.log('Is Home Page:', isHomePage);
-    console.log('Current Location:', location.pathname, location.hash);
 
     if (document.activeElement instanceof HTMLElement) {
       document.activeElement.blur();
@@ -29,7 +24,6 @@ const NavBarMenu = () => {
 
     // Handle page navigation (for /universities, etc.)
     if (item.type === 'page') {
-      console.log('Navigating to page:', item.url);
       navigate(item.url);
       return;
     }
@@ -37,51 +31,18 @@ const NavBarMenu = () => {
     // Handle scroll navigation (for sections on home page)
     const url = item.url;
     const scrollToSection = (sectionId) => {
-      console.log('scrollToSection called with:', sectionId);
-
       // Wait for DOM to be ready and find element with retry logic
       const findAndScroll = (attempts = 0) => {
-        console.log(`Attempt ${attempts + 1} to find element:`, sectionId);
         const element = document.getElementById(sectionId);
-        console.log('Element found:', element);
-
-        // Debug: Check all elements with similar IDs
-        const allElements = document.querySelectorAll('[id*="bizning"], [id*="manzil"], [id*="contact"]');
-        console.log('All related elements:', allElements);
 
         if (element) {
-          const elementTop = element.offsetTop;
-          const navbarHeight = 80; // Approximate navbar height
-          let offset = navbarHeight;
-
-          // Add centering offset for specific sections
-          if (sectionId === 'introduction') {
-            offset = navbarHeight + (window.innerHeight * 0.08); // 8% additional offset for introduction
-          } else if (sectionId === 'profile') {
-            offset = window.innerHeight * 0.25; // 25% of viewport height to center Profile card
-          } else if (sectionId === 'services') {
-            offset = window.innerHeight * 0.05; // 5% of viewport height (reduced by 10%)
-          } else if (sectionId === 'work-process') {
-            offset = window.innerHeight * 0.05; // 5% of viewport height (reduced by 10%)
-          } else if (sectionId === 'universitetlar') {
-            offset = window.innerHeight * 0.15; // 15% of viewport height for better centering
-          } else if (sectionId === 'contact') {
-            offset = window.innerHeight * 0.05; // 5% of viewport height (reduced by 5%)
-          } else if (sectionId === 'bizning-manzil') {
-            offset = window.innerHeight * 0.07; // 7% for bizning-manzil section
-          }
-
-          console.log('Scrolling to position:', elementTop - offset, 'Element top:', elementTop, 'Offset:', offset);
-          window.scrollTo({
-            top: elementTop - offset,
-            behavior: 'smooth'
+          element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
           });
         } else if (attempts < 15) {
-          console.log('Element not found, retrying...');
           // Retry up to 15 times with 100ms intervals
           setTimeout(() => findAndScroll(attempts + 1), 100);
-        } else {
-          console.log('Element not found after 15 attempts');
         }
       };
 
@@ -90,15 +51,12 @@ const NavBarMenu = () => {
 
     if (isHomePage) {
       // If on home page, scroll directly to section
-      console.log('On home page, scrolling directly');
       scrollToSection(url);
     } else {
       // If on other pages, navigate to home page with hash
-      console.log('Not on home page, navigating to:', `/#${url}`);
       navigate(`/#${url}`);
       // After navigation, scroll to the section with longer delay
       setTimeout(() => {
-        console.log('Navigation timeout executed, attempting scroll');
         scrollToSection(url);
       }, 800);
     }
@@ -108,7 +66,7 @@ const NavBarMenu = () => {
     <li key={item.id} onMouseDown={(e) => e.preventDefault()}>
       <button
         onClick={() => handleMenuClick(item)}
-        className={`hover:text-picto-primary px-5 py-3 mx-1 block cursor-pointer bg-transparent border-none text-inherit font-inherit`}
+        className="hover:text-picto-primary px-4 py-2.5 mx-0.5 block cursor-pointer bg-transparent border-none text-inherit font-inherit"
       >
         {item.name}
       </button>
@@ -136,13 +94,9 @@ const NavBar = () => {
     const scrollToIntroduction = () => {
       const element = document.getElementById('introduction');
       if (element) {
-        const elementTop = element.offsetTop;
-        const navbarHeight = 80; // Navbar height
-        const additionalOffset = window.innerHeight * 0.08; // 8% of viewport height for better positioning
-
-        window.scrollTo({
-          top: elementTop - navbarHeight - additionalOffset,
-          behavior: 'smooth'
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
         });
       }
     };
@@ -157,15 +111,19 @@ const NavBar = () => {
     }
   };
 
+  const handleRegistrationClick = () => {
+    navigate("/registration");
+  };
+
   return (
     <div
       className={`sticky top-0 z-50 ${position > 50
-        ? "bg-white/95 backdrop-blur-xl shadow-lg shadow-black/5 py-2"
-        : "bg-white py-3"
+        ? "bg-white/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-slate-200/70 py-2"
+        : "bg-white/95 border-b border-slate-100 py-2.5"
         }`}
       style={{ transition: 'background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease' }}
     >
-      <div className="navbar flex justify-between mx-auto content">
+      <div className="navbar flex justify-between mx-auto content px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -196,15 +154,20 @@ const NavBar = () => {
             onClick={handleLogoClick}
             className="flex items-center border-0 lg:max-xxl:ps-5 bg-transparent cursor-pointer"
           >
-            <img src={logo} className="h-8 sm:h-14 rounded-2xl" alt="logo" />
+            <img src={logo} className="h-9 sm:h-12 rounded-2xl" alt="logo" />
           </button>
         </div>
 
         <div className="lg:flex items-center">
-          <ul className="hidden lg:flex menu menu-horizontal text-[16px] font-medium md:shrink-0">
+          <ul className="hidden lg:flex menu menu-horizontal text-[15px] font-medium md:shrink-0">
             <NavBarMenu />
           </ul>
-
+          <button
+            onClick={handleRegistrationClick}
+            className="hidden lg:inline-flex btn-cta ml-4 px-4 py-2 text-sm"
+          >
+            Ro'yxatdan o'tish
+          </button>
         </div>
       </div>
     </div>

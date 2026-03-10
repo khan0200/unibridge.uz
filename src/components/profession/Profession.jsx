@@ -62,20 +62,20 @@ const tariffData = [
 
 const Profession = () => {
   return (
-    <div className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-gray-50" id="services">
-      <div className="max-w-7xl mx-auto">
+    <div className="scroll-section section-shell bg-gradient-to-b from-white to-gray-50" id="services">
+      <div className="layout-container">
         {/* Section Header */}
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+        <div className="section-header text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">
             Bizning <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">Xizmatlar</span>
           </h2>
-          <p className="text-xl lg:text-2xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Koreyada ta'lim olish uchun to'liq qo'llab-quvvatlash va professional yordam
           </p>
         </div>
 
         {/* Tariff Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10 mb-12 sm:mb-16 lg:mb-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 mb-10 sm:mb-12 lg:mb-14">
           {tariffData.map((tariff, index) => (
             <TariffCard key={index} tariff={tariff} />
           ))}
@@ -83,7 +83,7 @@ const Profession = () => {
 
         {/* Call to Action */}
         <div className="text-center">
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 lg:p-12 shadow-2xl shadow-gray-300/20 border border-gray-100 max-w-2xl mx-auto">
+          <div className="surface-panel p-8 lg:p-12 max-w-2xl mx-auto">
             <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
               Bepul konsultatsiya olish
             </h3>
@@ -92,7 +92,7 @@ const Profession = () => {
             </p>
             <Link
               to="/registration"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 transform hover:-translate-y-0.5 shadow-xl hover:shadow-2xl text-lg cursor-pointer"
+              className="btn-cta px-8 py-4 text-lg cursor-pointer"
             >
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />

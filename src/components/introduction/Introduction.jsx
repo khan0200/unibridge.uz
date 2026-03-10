@@ -80,14 +80,14 @@ const Introduction = () => {
 
   return (
     <div
-      className="relative pt-16 sm:pt-20 lg:pt-24 pb-16 sm:pb-20 lg:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[80vh] flex items-center overflow-hidden"
+      className="scroll-section relative pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto min-h-[72vh] flex items-center overflow-hidden"
       id="introduction"
     >
       {/* Subtle decorative accents - reduced from 48 animated grid elements */}
       <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-200/20 to-blue-300/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-32 right-20 w-40 h-40 bg-gradient-to-br from-purple-200/15 to-purple-300/10 rounded-full blur-3xl"></div>
 
-      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center w-full mt-8 sm:mt-12 lg:mt-16">
+      <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center w-full mt-4 sm:mt-8 lg:mt-10">
         {/* Left Content */}
         <div className="lg:col-span-7 space-y-6 sm:space-y-8">
           {/* Main Heading - Clean Version */}
@@ -103,7 +103,7 @@ const Introduction = () => {
           </div>
 
           {/* Clean Description Card */}
-          <div className="bg-white/90 backdrop-blur-md rounded-xl p-6 sm:p-8 border border-gray-100/80 shadow-lg shadow-gray-200/40">
+          <div className="surface-card p-6 sm:p-8">
             <p className="text-base sm:text-lg leading-relaxed text-gray-700 font-medium">
               Koreyaning <span className="inline-flex items-center bg-gradient-to-r from-amber-500 to-orange-600 text-white px-2.5 py-1 rounded-lg text-sm font-semibold shadow-sm">TOP universitetlari</span>da
               ta'lim olishda <span className="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 text-white px-2.5 py-1 rounded-lg text-sm font-semibold shadow-sm">professional yordam</span> va
@@ -116,7 +116,7 @@ const Introduction = () => {
             <Link
               to="/registration"
               onClick={() => trackButtonClick('cta_consultation', 'hero_section')}
-              className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 text-base sm:text-lg"
+              className="btn-cta px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
             >
               <FontAwesomeIcon icon={faPhone} className="text-base sm:text-lg" />
               Bepul konsultatsiyaga yozilish

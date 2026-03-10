@@ -31,16 +31,16 @@ const informationSummaryData = [
 
 const Profile = () => {
   return (
-    <div className="relative py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8" id="profile">
+    <div className="scroll-section relative section-shell--compact" id="profile">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 via-white to-blue-50/60"></div>
       
-      <div className="relative max-w-6xl mx-auto">
+      <div className="relative layout-container">
         {/* Main Content Card */}
         <div className="bg-white/95 backdrop-blur-xl rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100/80 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0">
             {/* Left Side - Image and Social */}
-            <div className="relative p-6 sm:p-8 lg:p-10 bg-gradient-to-br from-blue-50/50 to-purple-50/30">
+            <div className="relative p-5 sm:p-7 lg:p-9 bg-gradient-to-br from-blue-50/50 to-purple-50/30">
               {/* Decorative Elements */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-2xl"></div>
               <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-purple-400/10 to-pink-400/10 rounded-full blur-xl"></div>
@@ -78,10 +78,10 @@ const Profile = () => {
             </div>
 
             {/* Right Side - Content */}
-            <div className="p-6 sm:p-8 lg:p-10 space-y-6">
+            <div className="p-5 sm:p-7 lg:p-9 space-y-6">
               {/* Header */}
               <div className="space-y-3">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight">
+                <h2 className="text-2xl sm:text-3xl lg:text-[2.25rem] font-bold leading-tight">
                   <span className="bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">UniBridge</span>
                   <br />
                   <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">haqida ma'lumot</span>

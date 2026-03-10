@@ -26,8 +26,8 @@ export const GOOGLE_SCRIPT_CONFIG = {
 export const trackButtonClick = (buttonId, section) => {
   try {
     // Google Analytics 4 (if enabled)
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'button_click', {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'button_click', {
         button_id: buttonId,
         section: section,
         event_category: 'engagement',
@@ -36,9 +36,9 @@ export const trackButtonClick = (buttonId, section) => {
     }
 
     // Meta Pixel (Facebook)
-    if (typeof fbq !== 'undefined') {
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
       // Custom event for general button clicks
-      fbq('trackCustom', 'ButtonClick', {
+      window.fbq('trackCustom', 'ButtonClick', {
         button_id: buttonId,
         section: section,
         content_name: `${section}_${buttonId}`
@@ -46,18 +46,12 @@ export const trackButtonClick = (buttonId, section) => {
 
       // Standard event mapping for specific actions
       if (buttonId.includes('contact_phone') || buttonId.includes('social_')) {
-        fbq('track', 'Contact', {
+        window.fbq('track', 'Contact', {
           content_category: section,
           content_name: buttonId
         });
       }
     }
-
-    // Log for debugging
-    console.log('Button click tracked:', {
-      buttonId,
-      section
-    });
   } catch (error) {
     console.error('Error tracking button click:', error);
   }
@@ -66,8 +60,8 @@ export const trackButtonClick = (buttonId, section) => {
 export const trackUniversityInteraction = (universityName, action) => {
   try {
     // Google Analytics 4
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'university_interaction', {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'university_interaction', {
         university_name: universityName,
         action: action,
         event_category: 'university',
@@ -76,29 +70,23 @@ export const trackUniversityInteraction = (universityName, action) => {
     }
 
     // Meta Pixel (Facebook)
-    if (typeof fbq !== 'undefined') {
-      fbq('trackCustom', 'UniversityInteraction', {
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('trackCustom', 'UniversityInteraction', {
         university_name: universityName,
         action: action,
         content_name: `${universityName}_${action}`
       });
     }
-
-    // Log for debugging
-    console.log('University interaction tracked:', {
-      universityName,
-      action
-    });
   } catch (error) {
     console.error('Error tracking university interaction:', error);
   }
 };
 
-export const trackFormSubmission = (formType, formData) => {
+export const trackFormSubmission = (formType, _formData) => {
   try {
     // Google Analytics 4
-    if (typeof gtag !== 'undefined') {
-      gtag('event', 'form_submission', {
+    if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+      window.gtag('event', 'form_submission', {
         form_type: formType,
         event_category: 'lead',
         event_label: formType
@@ -106,24 +94,18 @@ export const trackFormSubmission = (formType, formData) => {
     }
 
     // Meta Pixel (Facebook) - Lead event
-    if (typeof fbq !== 'undefined') {
-      fbq('track', 'Lead', {
+    if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+      window.fbq('track', 'Lead', {
         content_name: formType,
         content_category: 'form_submission'
       });
 
       // Also track as a generic form submission custom event
-      fbq('trackCustom', 'FormSubmit', {
+      window.fbq('trackCustom', 'FormSubmit', {
         form_type: formType,
         status: 'success'
       });
     }
-
-    // Log for debugging
-    console.log('Form submission tracked:', {
-      formType,
-      formData
-    });
   } catch (error) {
     console.error('Error tracking form submission:', error);
   }

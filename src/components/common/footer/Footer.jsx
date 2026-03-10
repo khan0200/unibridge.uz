@@ -27,20 +27,7 @@ const Footer = () => {
     const scrollToSection = (sectionId) => {
       const element = document.getElementById(sectionId);
       if (element) {
-        const elementTop = element.offsetTop;
-        const navbarHeight = 80; // Approximate navbar height
-        let offset = navbarHeight;
-        
-        // Add centering offset for specific sections
-         if (['profile', 'services', 'work-process', 'universitetlar'].includes(sectionId)) {
-           offset = window.innerHeight * 0.15; // 15% of viewport height for better centering
-         } else if (sectionId === 'contact') {
-           // For contact section, scroll to show the bizning-manzil part
-           offset = window.innerHeight * 0.1; // 10% for contact section to show bizning-manzil
-         }
-        
-        window.scrollTo({
-          top: elementTop - offset,
+        element.scrollIntoView({
           behavior: 'smooth'
         });
       }
@@ -66,12 +53,7 @@ const Footer = () => {
     const scrollToIntroduction = () => {
       const element = document.getElementById('introduction');
       if (element) {
-        const elementTop = element.offsetTop;
-        const navbarHeight = 80; // Navbar height
-        const additionalOffset = window.innerHeight * 0.08; // 8% of viewport height for better positioning
-        
-        window.scrollTo({
-          top: elementTop - navbarHeight - additionalOffset,
+        element.scrollIntoView({
           behavior: 'smooth'
         });
       }
@@ -88,13 +70,13 @@ const Footer = () => {
   };
 
   return (
-    <div className="py-8 md:py-12 px-4 max-w-7xl mx-auto">
-      <div className="flex max-md:flex-col justify-between items-center gap-4 md:gap-6 text-neutral-200">
+    <div className="section-shell--compact">
+      <div className="layout-container flex max-md:flex-col justify-between items-center gap-5 md:gap-8 text-neutral-200 border-t border-white/10 pt-4">
         <button onClick={handleLogoClick} className="flex items-center gap-3 bg-transparent border-none cursor-pointer">
           <img src={footerLogo} className="h-8 sm:h-12 rounded-2xl" alt="footer logo" />
           <span className="text-lg md:text-xl font-semibold text-white">Uni Bridge</span>
         </button>
-        <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-5">
           {navItems.map((item) => (
             <button
               key={item.id}

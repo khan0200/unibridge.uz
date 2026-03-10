@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { collection, setDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { setDoc, doc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faCheck, faArrowLeft, faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ const AddUniversity = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [logoFile, setLogoFile] = useState(null);
     const [logoPreview, setLogoPreview] = useState('');
 
@@ -41,9 +42,10 @@ const AddUniversity = () => {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 800000) { // Check for ~800KB to stay safe within 1MB Firestore limit
-                alert("Rasm hajmi juda katta! Iltimos, 800KB dan kichik rasm yuklang.");
+                setErrorMessage("Rasm hajmi juda katta. Iltimos, 800KB dan kichik rasm yuklang.");
                 return;
             }
+            setErrorMessage('');
             setLogoFile(file);
             // Create preview and convert to Base64
             const reader = new FileReader();
@@ -56,13 +58,16 @@ const AddUniversity = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage('');
+        setSuccess(false);
+
         if (!logoPreview) {
-            alert("Iltimos, universitet logosini yuklang!");
+            setErrorMessage("Iltimos, universitet logosini yuklang.");
             return;
         }
 
         if (formData.levels.length === 0) {
-            alert("Iltimos, kamida bitta darajani tanlang!");
+            setErrorMessage("Iltimos, kamida bitta darajani tanlang.");
             return;
         }
 
@@ -103,7 +108,7 @@ const AddUniversity = () => {
 
         } catch (error) {
             console.error('Error adding university:', error);
-            alert('Xatolik yuz berdi! Qaytadan urinib ko\'ring.');
+            setErrorMessage("Xatolik yuz berdi. Qaytadan urinib ko'ring.");
         } finally {
             setLoading(false);
         }
@@ -138,6 +143,12 @@ const AddUniversity = () => {
                         <p className="text-green-800 font-semibold">
                             Universitet muvaffaqiyatli qo'shildi!
                         </p>
+                    </div>
+                )}
+
+                {errorMessage && (
+                    <div className="mb-6 bg-red-50 border-2 border-red-200 rounded-xl p-4">
+                        <p className="text-red-700 font-medium">{errorMessage}</p>
                     </div>
                 )}
 
@@ -206,7 +217,7 @@ const AddUniversity = () => {
                                         type="file"
                                         accept="image/*"
                                         onChange={handleFileChange}
-                                        required={!formData.logo}
+                                        required={!logoPreview}
                                         className="hidden"
                                     />
                                 </label>
@@ -298,11 +309,11 @@ const AddUniversity = () => {
 
                 {/* Info Box */}
                 <div className="mt-6 bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-                    <h3 className="font-bold text-blue-900 mb-2">💡 Maslahat</h3>
+                    <h3 className="font-bold text-blue-900 mb-2">Maslahat</h3>
                     <ul className="text-sm text-blue-800 space-y-1">
-                        <li>• Logo rasmini kompyuteringizdan yuklang (800KB dan kichik)</li>
-                        <li>• Universitet nomi avtomatik ravishda KATTA HARFLARDA saqlanadi</li>
-                        <li>• Ma'lumotlarni aniq va batafsil kiriting</li>
+                        <li>- Logo rasmini kompyuteringizdan yuklang (800KB dan kichik)</li>
+                        <li>- Universitet nomi avtomatik ravishda KATTA HARFLARDA saqlanadi</li>
+                        <li>- Ma\'lumotlarni aniq va batafsil kiriting</li>
                     </ul>
                 </div>
             </div>
@@ -311,3 +322,4 @@ const AddUniversity = () => {
 };
 
 export default AddUniversity;
+

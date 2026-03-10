@@ -37,9 +37,9 @@ const TariffCard = ({ tariff }) => {
     <div
       onMouseEnter={() => setMouseHover(true)}
       onMouseLeave={() => setMouseHover(false)}
-      className={`relative p-3 sm:p-4 lg:p-5 bg-white/90 backdrop-blur-sm hover:bg-white shadow-xl hover:shadow-2xl rounded-2xl border transform hover:-translate-y-1 ${tariff.featured
-          ? 'border-blue-200 bg-gradient-to-br from-blue-50/50 via-white to-blue-50/30 ring-2 ring-blue-300/50'
-          : 'border-gray-200 hover:border-blue-300'
+      className={`relative surface-card p-4 sm:p-5 lg:p-6 transform hover:-translate-y-1 ${tariff.featured
+          ? 'ring-2 ring-blue-300/50'
+          : ''
         }`}
       style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
     >
@@ -86,8 +86,8 @@ const TariffCard = ({ tariff }) => {
       </div>
 
       {/* Services List */}
-      <div className="mb-3 sm:mb-4 relative z-10">
-        <div className="flex items-center mb-2 sm:mb-3">
+      <div className="mb-4 sm:mb-5 relative z-10">
+        <div className="flex items-center mb-3 sm:mb-4">
           <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
             <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
@@ -98,7 +98,7 @@ const TariffCard = ({ tariff }) => {
           </h4>
         </div>
 
-        <div className="space-y-1.5">
+        <div className="space-y-2">
           {tariff.services.map((service, index) => {
             const isInformationalText = service.text.includes('Ushbu ta\'rif kimlar uchun') || service.text.includes('Universitetdan ko\'proq grant');
 
@@ -120,7 +120,7 @@ const TariffCard = ({ tariff }) => {
             }
 
             return (
-              <div key={index} className={`flex items-center justify-between p-1.5 sm:p-2 rounded-lg transition-all duration-200 ${service.text.includes('STANDART') || service.text.includes('PREMIUM')
+              <div key={index} className={`flex items-center justify-between p-2 sm:p-2.5 rounded-lg transition-all duration-200 ${service.text.includes('STANDART') || service.text.includes('PREMIUM')
                   ? 'bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200'
                   : 'bg-gray-50 hover:bg-gray-100 border border-gray-200'
                 }`}>
@@ -143,8 +143,8 @@ const TariffCard = ({ tariff }) => {
       </div>
 
       {/* Visa Conditions */}
-      <div className="space-y-1.5 relative z-10">
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-1.5 sm:p-2 rounded-lg border border-green-200">
+      <div className="space-y-2 relative z-10">
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-2 rounded-lg border border-green-200">
           <div className="flex items-center">
             <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
               <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -155,7 +155,7 @@ const TariffCard = ({ tariff }) => {
           </div>
         </div>
 
-        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-1.5 sm:p-2 rounded-lg border border-green-200">
+        <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-2 rounded-lg border border-green-200">
           <div className="flex items-center">
             <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center mr-2 flex-shrink-0">
               <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">

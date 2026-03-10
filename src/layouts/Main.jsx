@@ -12,7 +12,7 @@ const Main = () => {
     <div data-theme={"light"} className="relative">
       <NavBar />
       <Outlet />
-      <div className="bg-[#2A374A]">
+      <div className="bg-gradient-to-r from-[#223047] via-[#273850] to-[#2A374A]">
         <Footer />
       </div>
       <ScrollToTop />
