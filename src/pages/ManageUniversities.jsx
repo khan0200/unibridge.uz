@@ -22,6 +22,7 @@ const ManageUniversities = () => {
     const [saving, setSaving] = useState(false);
     const [logoFile, setLogoFile] = useState(null);
     const [logoPreview, setLogoPreview] = useState('');
+    const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
 
     const [editFormData, setEditFormData] = useState({
         name: '',
@@ -38,6 +39,7 @@ const ManageUniversities = () => {
 
     const fetchUniversities = async () => {
         setLoading(true);
+        setStatusMessage({ type: '', text: '' });
         try {
             const querySnapshot = await getDocs(collection(db, 'universities'));
             const universitiesData = querySnapshot.docs.map(doc => ({
@@ -47,12 +49,13 @@ const ManageUniversities = () => {
             setUniversities(universitiesData);
         } catch (error) {
             console.error('Error fetching universities:', error);
-            alert('Xatolik yuz berdi!');
+            setStatusMessage({ type: 'error', text: "Universitetlarni yuklashda xatolik yuz berdi." });
         }
         setLoading(false);
     };
 
     const handleEdit = (university) => {
+        setStatusMessage({ type: '', text: '' });
         setEditingUniversity(university);
         setEditFormData({
             name: university.name,
@@ -79,9 +82,10 @@ const ManageUniversities = () => {
         const file = e.target.files[0];
         if (file) {
             if (file.size > 800000) {
-                alert("Rasm hajmi juda katta! Iltimos, 800KB dan kichik rasm yuklang.");
+                setStatusMessage({ type: 'error', text: "Rasm hajmi juda katta. Iltimos, 800KB dan kichik rasm yuklang." });
                 return;
             }
+            setStatusMessage({ type: '', text: '' });
             setLogoFile(file);
             const reader = new FileReader();
             reader.onloadend = () => {
@@ -93,11 +97,12 @@ const ManageUniversities = () => {
 
     const handleSaveEdit = async () => {
         if (editFormData.levels.length === 0) {
-            alert("Iltimos, kamida bitta darajani tanlang!");
+            setStatusMessage({ type: 'error', text: "Iltimos, kamida bitta darajani tanlang." });
             return;
         }
 
         setSaving(true);
+        setStatusMessage({ type: '', text: '' });
         try {
             const universityRef = doc(db, 'universities', editingUniversity.id);
             await updateDoc(universityRef, {
@@ -109,12 +114,12 @@ const ManageUniversities = () => {
                 updatedAt: serverTimestamp()
             });
 
-            alert('Universitet muvaffaqiyatli yangilandi!');
+            setStatusMessage({ type: 'success', text: "Universitet muvaffaqiyatli yangilandi." });
             setEditingUniversity(null);
             fetchUniversities();
         } catch (error) {
             console.error('Error updating university:', error);
-            alert('Xatolik yuz berdi!');
+            setStatusMessage({ type: 'error', text: "Universitetni yangilashda xatolik yuz berdi." });
         }
         setSaving(false);
     };
@@ -122,12 +127,12 @@ const ManageUniversities = () => {
     const handleDelete = async (universityId) => {
         try {
             await deleteDoc(doc(db, 'universities', universityId));
-            alert('Universitet o\'chirildi!');
+            setStatusMessage({ type: 'success', text: "Universitet o'chirildi." });
             setDeleteConfirm(null);
             fetchUniversities();
         } catch (error) {
             console.error('Error deleting university:', error);
-            alert('Xatolik yuz berdi!');
+            setStatusMessage({ type: 'error', text: "Universitetni o'chirishda xatolik yuz berdi." });
         }
     };
 
@@ -161,6 +166,17 @@ const ManageUniversities = () => {
                         Universitetlarni tahrirlash va o'chirish
                     </p>
                 </div>
+
+                {statusMessage.text && (
+                    <div
+                        className={`mb-6 rounded-xl border-2 p-4 ${statusMessage.type === 'success'
+                            ? 'bg-green-50 border-green-200 text-green-800'
+                            : 'bg-red-50 border-red-200 text-red-800'
+                            }`}
+                    >
+                        <p className="font-medium">{statusMessage.text}</p>
+                    </div>
+                )}
 
                 {/* Universities Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

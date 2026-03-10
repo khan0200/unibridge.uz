@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { submitToGoogleSheets } from '../config/googleSheets';
@@ -83,13 +82,6 @@ const customStyles = `
   }
 `;
 
-// Inject styles
-if (typeof document !== 'undefined') {
-  const styleSheet = document.createElement('style');
-  styleSheet.textContent = customStyles;
-  document.head.appendChild(styleSheet);
-}
-
 const Registration = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -98,6 +90,7 @@ const Registration = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const [formErrors, setFormErrors] = useState({});
 
@@ -123,6 +116,27 @@ const Registration = () => {
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (typeof document === 'undefined') {
+      return undefined;
+    }
+
+    const styleId = 'registration-swiper-custom-styles';
+    const existingStyle = document.getElementById(styleId);
+    if (existingStyle) {
+      return undefined;
+    }
+
+    const styleSheet = document.createElement('style');
+    styleSheet.id = styleId;
+    styleSheet.textContent = customStyles;
+    document.head.appendChild(styleSheet);
+
+    return () => {
+      styleSheet.remove();
+    };
   }, []);
 
   const handleInputChange = (e) => {
@@ -171,6 +185,7 @@ const Registration = () => {
     
     // Clear previous errors
     setFormErrors({});
+    setSubmitError('');
     
     // Enhanced validation with animations
     const errors = {};
@@ -216,8 +231,7 @@ const Registration = () => {
       const errorMessage = error.message.includes('timeout') 
         ? 'Vaqt tugadi. Iltimos qaytadan urinib ko\'ring.'
         : 'Xatolik yuz berdi. Iltimos qaytadan urinib ko\'ring.';
-      
-      alert(errorMessage);
+      setSubmitError(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -237,8 +251,8 @@ const Registration = () => {
         }}></div>
       </div>
       {/* Main Content */}
-      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-6 md:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-12 max-w-7xl mx-auto">
+      <div className="layout-container py-8 sm:py-10 md:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-7 md:gap-9 lg:gap-12">
           
           {/* Left Side - University Carousel */}
           <div className="bg-white/90 backdrop-blur-md rounded-2xl sm:rounded-3xl shadow-2xl p-4 sm:p-6 border border-white/30 hover:shadow-3xl transition-all duration-500 relative overflow-hidden">
@@ -482,6 +496,12 @@ const Registration = () => {
                     </div>
                   )}
                 </button>
+
+                {submitError && (
+                  <p className="text-sm font-medium text-red-600 text-center">
+                    {submitError}
+                  </p>
+                )}
                 
                 {/* Social Media Links - Mobile Only */}
                 <div className="flex lg:hidden justify-center items-center mt-6 space-x-4">

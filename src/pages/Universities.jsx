@@ -8,7 +8,6 @@ import {
   startAfter,
   endBefore,
   limitToLast,
-  where,
   getCountFromServer,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
@@ -18,20 +17,14 @@ import {
   faArrowRight,
   faSearch,
   faTimes,
-  faGraduationCap,
   faInfoCircle,
-  faAward,
   faChevronDown,
   faBook,
   faTrophy,
   faFilter,
-  faCog,
 } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
 
 const Universities = () => {
-  const navigate = useNavigate();
-  const [universities, setUniversities] = useState([]);
   const [filteredUniversities, setFilteredUniversities] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [activeSearchTerm, setActiveSearchTerm] = useState("");
@@ -94,7 +87,6 @@ const Universities = () => {
       if (querySnapshot.docs.length > 0) {
         setFirstDoc(querySnapshot.docs[0]);
         setLastDoc(querySnapshot.docs[querySnapshot.docs.length - 1]);
-        setUniversities(universitiesData);
         setFilteredUniversities(universitiesData);
 
         // Check if there's potentially more (only for 'initial' and 'next')
@@ -105,7 +97,6 @@ const Universities = () => {
         }
       } else {
         if (direction === "initial") {
-          setUniversities([]);
           setFilteredUniversities([]);
         }
         setHasMore(false);
@@ -154,6 +145,12 @@ const Universities = () => {
   useEffect(() => {
     handleSearch();
   }, [selectedLevel]);
+
+  useEffect(() => {
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   // Manual search function
   const handleSearch = async () => {
@@ -256,16 +253,16 @@ const Universities = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white pt-8 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <div className="max-w-7xl mx-auto relative">
+    <div className="min-h-screen section-shell bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+      <div className="layout-container relative">
         {/* Header */}
         <div className="text-center relative z-10">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 drop-shadow-sm">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 drop-shadow-sm">
             Universitetlar
           </h1>
 
           {/* Search Input and Filter */}
-          <div className="flex flex-col sm:flex-row justify-center items-center mb-2 gap-3">
+          <div className="flex flex-col sm:flex-row justify-center items-center mb-6 gap-3">
             {/* Search Bar — full width on mobile, fixed width on sm+ */}
             <div className="relative w-full sm:w-96 group">
               <input
@@ -273,7 +270,7 @@ const Universities = () => {
                 placeholder="Universitet nomini qidiring..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                onKeyPress={handleSearchKeyPress}
+                onKeyDown={handleSearchKeyPress}
                 className="w-full px-4 py-4 pl-12 pr-14 rounded-2xl border-2 border-gray-100 focus:border-blue-500 focus:outline-none transition-all shadow-sm hover:shadow-md bg-white/80 backdrop-blur-sm"
               />
               <FontAwesomeIcon
@@ -319,7 +316,7 @@ const Universities = () => {
         </div>
 
         {/* Small Ghost Text Above Grid */}
-        <div className="flex justify-start mb-4 px-1 relative z-10">
+        <div className="flex justify-start mb-6 px-1 relative z-10">
           <span className="text-sm sm:text-lg font-bold text-blue-500/40 italic tracking-tight select-none">
             {activeSearchTerm || selectedLevel
               ? filteredUniversities.length
@@ -330,12 +327,12 @@ const Universities = () => {
 
         {/* Universities Grid */}
         <div
-          className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 transition-opacity duration-300 relative z-10 ${paging ? "opacity-50" : "opacity-100"}`}
+          className={`grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 transition-opacity duration-300 relative z-10 ${paging ? "opacity-50" : "opacity-100"}`}
         >
           {filteredUniversities.map((university) => (
             <div
               key={university.id}
-              className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group hover:-translate-y-1 border border-gray-100 flex flex-col"
+              className="surface-card overflow-hidden group hover:-translate-y-1 flex flex-col"
             >
               {/* University Logo */}
               <div className="relative bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center h-32 sm:h-48 border-b border-gray-100 overflow-hidden">
@@ -395,7 +392,7 @@ const Universities = () => {
                 {/* Details Button — always readable on mobile */}
                 <button
                   onClick={() => openModal(university)}
-                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-sm hover:shadow-lg active:scale-95 text-sm"
+                  className="w-full btn-cta py-2.5 px-4 text-sm"
                 >
                   <span>Batafsil</span>
                   <FontAwesomeIcon
@@ -466,7 +463,10 @@ const Universities = () => {
 
       {/* University Details Modal */}
       {isModalOpen && selectedUniversity && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300"
+          onClick={closeModal}
+        >
           <div
             className="bg-white rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col animate-in zoom-in-95 duration-300"
             onClick={(e) => e.stopPropagation()}

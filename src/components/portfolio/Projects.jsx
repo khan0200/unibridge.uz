@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Projects = ({ data, onDetailsClick }) => {
   return (
-    <div className="w-full rounded-2xl bg-white hover:shadow-2xl duration-300 shadow-lg border border-gray-100 overflow-hidden group hover:-translate-y-1"
+    <div className="w-full surface-card overflow-hidden group hover:-translate-y-1"
       style={{ transition: 'transform 0.3s ease, box-shadow 0.3s ease' }}
     >
       <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-50">
@@ -37,7 +37,7 @@ const Projects = ({ data, onDetailsClick }) => {
 
         <button
           onClick={onDetailsClick}
-          className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl text-sm sm:text-base shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+          className="w-full btn-cta text-sm sm:text-base"
         >
           Batafsil
           <FontAwesomeIcon icon={faArrowRight} className="group-hover:translate-x-1 transition-transform duration-300" />

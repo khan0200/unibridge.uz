@@ -38,20 +38,20 @@ const workStepData = [
 const WorkProcess = () => {
   return (
     <div
-      className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white"
+      className="scroll-section section-shell bg-gradient-to-b from-gray-50 to-white"
       id="work-process"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="layout-container">
         {/* Header Section */}
-        <div className="text-center mb-12 sm:mb-16 lg:mb-20">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+        <div className="section-header text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
             <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">JARAYON</span>
           </h2>
 
         </div>
 
         {/* Cards Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8">
           {workStepData.map((data, index) => {
             return (
               <WorkSteps

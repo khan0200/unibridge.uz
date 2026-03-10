@@ -2,7 +2,6 @@ import {
   faEnvelope,
   faLocationDot,
   faPhone,
-  faMapMarkerAlt,
   faMap
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -32,7 +31,7 @@ const addressData = [
     title: "Toshkent filiali",
     description: "Toshkent shahri, Novza metrosi yonida",
     mapLink: "https://maps.app.goo.gl/H2QSPWJKv3ZdZ9R16",
-    embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d654.9355414834703!2d69.22477317962252!3d41.29303467104794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0018045457%3A0x11a9cc71baa3226a!2sUnibridge!5e0!3m2!1sen!2s!4v1771230989484!5m2!1sen!2s&gestureHandling=greedy",
+    embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2997.763658064671!2d69.22249781181716!3d41.29224791290484!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0018045457%3A0x11a9cc71baa3226a!2sUnibridge!5e0!3m2!1sen!2sus!4v1773120372179!5m2!1sen!2sus",
     hasMap: true,
     phone: "+998-78-555-24-17"
   }
@@ -53,7 +52,7 @@ const Contact = () => {
 
   const renderRightPanel = () => {
     switch (activeView) {
-      case 'andijon':
+      case 'andijon': {
         const andijanLocation = addressData.find(item => item.id === 'andijon');
         return (
           <div className="h-full min-h-[400px] rounded-lg overflow-hidden transition-all duration-700 ease-in-out transform animate-fadeIn">
@@ -71,7 +70,8 @@ const Contact = () => {
             ></iframe>
           </div>
         );
-      case 'tashkent':
+      }
+      case 'tashkent': {
         const tashkentLocation = addressData.find(item => item.id === 'tashkent');
         return (
           <div className="h-full min-h-[400px] rounded-lg overflow-hidden transition-all duration-700 ease-in-out transform animate-fadeIn">
@@ -89,6 +89,7 @@ const Contact = () => {
             ></iframe>
           </div>
         );
+      }
       default:
         return (
           <div className="transition-all duration-700 ease-in-out transform animate-fadeIn">
@@ -99,19 +100,19 @@ const Contact = () => {
   };
 
   return (
-    <div className="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white" id="contact">
-      <div className="max-w-7xl mx-auto">
+    <div className="scroll-section section-shell bg-gradient-to-b from-gray-50 to-white" id="contact">
+      <div className="layout-container">
         {/* Section Header */}
-        <div className="text-center mb-8 lg:mb-10">
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4 lg:mb-6">
+        <div className="section-header text-center">
+          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-4">
             Biz bilan <span className="bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">Bog'laning</span>
           </h2>
-          <p className="text-lg lg:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base lg:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Koreyada ta'lim olish bo'yicha bepul konsultatsiya va professional yordam
           </p>
         </div>
 
-        <div className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl shadow-gray-300/20 border border-gray-100 p-6 lg:p-8">
+        <div className="surface-panel p-5 sm:p-6 lg:p-8">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
             {/* Right Panel - Shows first on mobile */}
             <div className="lg:w-1/2 order-1 lg:order-2 mb-6 lg:mb-0">
@@ -203,12 +204,12 @@ const Contact = () => {
               </div>
 
               {/* Social Media Links */}
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-2 sm:gap-3">
                 <a
                   href="https://www.instagram.com/unibridge.uz/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                  className="flex-1 min-w-[120px] justify-center flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
                 >
                   <FontAwesomeIcon icon={faInstagram} className="text-base" />
                   <span>Instagram</span>
@@ -217,7 +218,7 @@ const Contact = () => {
                   href="https://t.me/unibridge_uz"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                  className="flex-1 min-w-[120px] justify-center flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
                 >
                   <FontAwesomeIcon icon={faTelegram} className="text-base" />
                   <span>Telegram</span>
@@ -226,7 +227,7 @@ const Contact = () => {
                   href="https://www.youtube.com/@UnibridgeKoreya"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
+                  className="flex-1 min-w-[120px] justify-center flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl hover:from-red-600 hover:to-red-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
                 >
                   <FontAwesomeIcon icon={faYoutube} className="text-base" />
                   <span>YouTube</span>

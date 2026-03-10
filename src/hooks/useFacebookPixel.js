@@ -15,9 +15,8 @@ const useFacebookPixel = () => {
         // Check if fbq is defined (Meta Pixel script loaded)
         if (typeof window.fbq === 'function') {
             window.fbq('track', 'PageView');
-            console.log(`[Meta Pixel] PageView tracked: ${location.pathname}${location.search}`);
         }
-    }, [location]);
+    }, [location.pathname, location.search]);
 };
 
 export default useFacebookPixel;
