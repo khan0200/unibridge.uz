@@ -1,8 +1,11 @@
-@import "tailwindcss";
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import "tailwindcss";
 @plugin "daisyui";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, cupcake;
+  themes:
+    light --default,
+    dark --prefersdark,
+    cupcake;
 }
 
 /* 
@@ -16,13 +19,13 @@
   --breakpoint-xxs: 21.25rem; /* 340px */
   --breakpoint-xs: 23.125rem; /* 363px */
   --breakpoint-xxl: 82.5rem; /* 1320px */
-  --color-picto-primary: #007AFF; /* Apple Blue */
-  --color-picto-primary-dark: #0056CC;
-  --color-soft-white: #FBFBFD; /* Apple Light Gray */
-  --color-soft-dark: #8E8E93; /* Apple Secondary Gray */
-  --color-apple-gray: #F2F2F7; /* Apple System Gray 6 */
-  --color-apple-text: #1D1D1F; /* Apple Primary Text */
-  --color-apple-secondary: #86868B; /* Apple Secondary Text */
+  --color-picto-primary: #007aff; /* Apple Blue */
+  --color-picto-primary-dark: #0056cc;
+  --color-soft-white: #fbfbfd; /* Apple Light Gray */
+  --color-soft-dark: #8e8e93; /* Apple Secondary Gray */
+  --color-apple-gray: #f2f2f7; /* Apple System Gray 6 */
+  --color-apple-text: #1d1d1f; /* Apple Primary Text */
+  --color-apple-secondary: #86868b; /* Apple Secondary Text */
 }
 
 :root {
@@ -63,10 +66,17 @@
 }
 
 /* Targeted transition for interactive elements only */
-a, button, input, select, textarea,
-.btn, .card, [role="button"] {
-  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
-  transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+a,
+button,
+input,
+select,
+textarea,
+.btn,
+.card,
+[role="button"] {
+  transition-property:
+    color, background-color, border-color, box-shadow, transform, opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 200ms;
 }
 
@@ -105,7 +115,15 @@ a, button, input, select, textarea,
 }
 
 body {
-  font-family: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family:
+    "Manrope",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
   color: var(--color-apple-text);
   background-color: var(--color-soft-white);
   line-height: 1.55;
@@ -175,7 +193,11 @@ html {
 }
 
 .surface-panel {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.94) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(248, 250, 252, 0.94) 100%
+  );
   border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
@@ -194,7 +216,9 @@ html {
 
 .form-control-pro {
   @apply w-full rounded-xl border border-slate-200 bg-white/90 px-4 py-2.5 text-sm text-slate-800;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 1px 3px rgba(15, 23, 42, 0.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 1px 3px rgba(15, 23, 42, 0.05);
 }
 
 .form-control-pro:focus {
@@ -222,31 +246,47 @@ html {
 }
 
 .introduction-background {
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.04) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(0, 86, 204, 0.06) 0%, transparent 50%),
-    linear-gradient(180deg, #FBFBFD 0%, #F8F9FA 100%);
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(0, 122, 255, 0.04) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(0, 86, 204, 0.06) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, #fbfbfd 0%, #f8f9fa 100%);
   position: relative;
   overflow: hidden;
   padding-bottom: 0;
 }
 
 .introduction-background::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: 
-    radial-gradient(circle at 20% 80%, rgba(0, 122, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(0, 86, 204, 0.05) 0%, transparent 50%);
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(0, 122, 255, 0.03) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(0, 86, 204, 0.05) 0%,
+      transparent 50%
+    );
   animation: backgroundShift 8s ease-in-out infinite alternate;
   pointer-events: none;
 }
 
 .profile-background {
-  background: linear-gradient(180deg, #F8F9FA 0%, #FFFFFF 100%);
+  background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
   position: relative;
   padding: 0;
 }
@@ -263,7 +303,8 @@ html {
 }
 
 .blog-background {
-  background: radial-gradient(circle at -10% 0%, #da4df166 1%, transparent 25%),
+  background:
+    radial-gradient(circle at -10% 0%, #da4df166 1%, transparent 25%),
     radial-gradient(circle at 110% 30%, #c4f5e9b2 5%, transparent 25%);
 }
 

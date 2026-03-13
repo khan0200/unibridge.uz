@@ -406,7 +406,7 @@ const Universities = () => {
         </div>
 
         {/* Pagination Controls */}
-        {!activeSearchTerm && filteredUniversities.length > 0 && (
+        {!activeSearchTerm && !selectedLevel && filteredUniversities.length > 0 && (
           <div className="mt-12 flex flex-col items-center gap-2 sm:gap-4 relative z-10">
             <div className="flex items-center justify-center gap-2 sm:gap-4">
               <button
