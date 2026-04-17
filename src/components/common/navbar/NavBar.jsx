@@ -8,7 +8,8 @@ const navItems = [
   { id: 3, name: "Xizmatlar", url: "services", type: "scroll" },
   { id: 4, name: "Jarayon", url: "work-process", type: "scroll" },
   { id: 5, name: "Universitetlar", url: "/universities", type: "page" },
-  { id: 6, name: "Aloqa", url: "contact", type: "scroll" },
+  { id: 6, name: "Videolar", url: "videos", type: "scroll" },
+  { id: 7, name: "Aloqa", url: "contact", type: "scroll" },
 ];
 
 const NavBarMenu = () => {

@@ -6,6 +6,8 @@ import WorkProcess from "../components/workProcess/WorkProcess";
 import Portfolio from "../components/portfolio/Portfolio";
 import Profession from "../components/profession/Profession";
 import Contact from "../components/contact/Contact";
+import Videos from "../components/videos/Videos";
+import Testimonial from "../components/testimonial/Testimonial";
 import "../../index.css";
 
 const Home = () => {
@@ -63,6 +65,12 @@ const Home = () => {
       {/* Portfolio Section */}
       <Portfolio />
       
+      {/* Videos Section */}
+      <Videos />
+
+      {/* Testimonials Section */}
+      <Testimonial />
+
       {/* Contact Section */}
       <Contact />
     </div>

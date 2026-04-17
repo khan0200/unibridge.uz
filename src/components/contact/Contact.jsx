@@ -206,7 +206,7 @@ const Contact = () => {
               {/* Social Media Links */}
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 <a
-                  href="https://www.instagram.com/unibridge.uz/"
+                  href="https://www.instagram.com/unibridge_consulting/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 min-w-[120px] justify-center flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl hover:from-pink-600 hover:to-rose-600 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"
@@ -215,7 +215,7 @@ const Contact = () => {
                   <span>Instagram</span>
                 </a>
                 <a
-                  href="https://t.me/unibridge_uz"
+                  href="https://t.me/unibridge_consulting"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 min-w-[120px] justify-center flex items-center gap-2 px-3 lg:px-4 py-2 lg:py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 transition-all duration-300 cursor-pointer shadow-lg transform hover:-translate-y-1 text-sm lg:text-base font-semibold"

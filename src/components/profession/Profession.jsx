@@ -1,5 +1,6 @@
 import TariffCard from "./TariffCard";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const tariffData = [
   {
@@ -57,10 +58,92 @@ const tariffData = [
     ],
     visaSuccess: "Viza chiqsa: To'lov yo'q.",
     visaRefund: "Viza chiqmasa barcha to'lov 100% qaytariladi!"
+  },
+  {
+    id: 4,
+    name: "Regional",
+    price: 24000000,
+    initialPayment: 2000000,
+    featured: false,
+    services: [
+      { text: "Universitet tanlash va yo'nalish bo'yicha professional maslahat", price: "✓" },
+      { text: "Talabaning universitet talab qilgan barcha hujjatlarini tayyorlash (Apostil, tarjima, notarial tasdiq)", price: "✓" },
+      { text: "2 ta universitetga onlayn ro'yxatdan o'tkazish (Apply)", price: "✓" },
+      { text: "Application fee to'lab beriladi (70 000 KRW gacha)", price: "✓" },
+      { text: "Universitetga hujjatlarni o'z vaqtida yetkazib berish", price: "✓" },
+      { text: "Elchixonaga viza uchun hujjatlarni tayyorlash va topshirish", price: "✓" },
+      { text: "Talabaga Koreya SIM karta va bank kartasi taqdim etiladi", price: "✓" }
+    ],
+    additionalInfo: [
+      "Jarayon: Regional Visa (Telex) orqali amalga oshiriladi",
+      "Viza tasdiqlangandan so'ng xizmat to'lovi to'lanadi"
+    ],
+    paymentSchedule: [
+      { amount: "2,000,000 so'm", condition: "shartnoma imzolanganida" },
+      { amount: "22,000,000 so'm", condition: "D2 viza tasdiqlangandan so'ng" }
+    ],
+    visaSuccess: "Viza tasdiqlangandan so'ng to'lov amalga oshiriladi."
+  },
+  {
+    id: 5,
+    name: "E-Viza (Til sertifikatli)",
+    price: 16000000,
+    initialPayment: 1000000,
+    featured: false,
+    services: [
+      { text: "Magistratura uchun universitet tanlash bo'yicha maslahat", price: "✓" },
+      { text: "Hujjatlarni tayyorlash (apostil, tarjima, notarial tasdiq)", price: "✓" },
+      { text: "2 ta universitetga onlayn ro'yxatdan o'tkazish", price: "✓" },
+      { text: "Universitetga hujjatlarni yetkazib berish", price: "✓" },
+      { text: "Immigratsiyaga viza uchun hujjatlarni tayyorlash va topshirish", price: "✓" },
+      { text: "Talabaga Koreya SIM karta va bank kartasi beriladi", price: "✓" }
+    ],
+    additionalInfo: [
+      "Magistratura uchun D-2 elektron viza (E-Visa)",
+      "Immigratsiya orqali rasmiy viza jarayoni",
+      "Ko'rib chiqish muddati odatda 3–5 oy"
+    ],
+    paymentSchedule: [
+      { amount: "1,000,000 so'm", condition: "shartnoma imzolanganida" },
+      { amount: "15,000,000 so'm", condition: "E-Viza tasdiqlangandan so'ng" }
+    ],
+    visaSuccess: "E-Viza tasdiqlangandan so'ng to'lov amalga oshiriladi."
+  },
+  {
+    id: 6,
+    name: "E-Viza (Til sertifikatisiz)",
+    price: 24000000,
+    initialPayment: 2000000,
+    featured: false,
+    services: [
+      { text: "Magistratura uchun universitet va yo'nalish tanlash bo'yicha maslahat", price: "✓" },
+      { text: "Hujjatlarni tayyorlash (apostil, tarjima, notarial tasdiq)", price: "✓" },
+      { text: "2 ta universitetga onlayn ro'yxatdan o'tkazish", price: "✓" },
+      { text: "Application fee to'lab beriladi (70 000 KRW gacha)", price: "✓" },
+      { text: "Universitetga hujjatlarni yetkazib berish", price: "✓" },
+      { text: "Immigratsiyaga viza uchun hujjatlarni tayyorlash va topshirish", price: "✓" },
+      { text: "Talabaga Koreya SIM karta va bank kartasi beriladi", price: "✓" }
+    ],
+    additionalInfo: [
+      "Magistratura uchun D-2 elektron viza (E-Visa)",
+      "Til sertifikati talab qilinmaydi",
+      "Viza ko'rib chiqish muddati 3–5 oy"
+    ],
+    paymentSchedule: [
+      { amount: "2,000,000 so'm", condition: "shartnoma imzolanganida" },
+      { amount: "22,000,000 so'm", condition: "E-Viza tasdiqlangandan so'ng" }
+    ],
+    visaSuccess: "E-Viza tasdiqlangandan so'ng to'lov amalga oshiriladi."
   }
 ];
 
 const Profession = () => {
+  const [openCardId, setOpenCardId] = useState(null);
+
+  const handleToggle = (id) => {
+    setOpenCardId(prev => prev === id ? null : id);
+  };
+
   return (
     <div className="scroll-section section-shell bg-gradient-to-b from-white to-gray-50" id="services">
       <div className="layout-container">
@@ -76,8 +159,13 @@ const Profession = () => {
 
         {/* Tariff Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 mb-10 sm:mb-12 lg:mb-14">
-          {tariffData.map((tariff, index) => (
-            <TariffCard key={index} tariff={tariff} />
+          {tariffData.map((tariff) => (
+            <TariffCard
+              key={tariff.id}
+              tariff={tariff}
+              isOpen={openCardId === tariff.id}
+              onToggle={() => handleToggle(tariff.id)}
+            />
           ))}
         </div>
 

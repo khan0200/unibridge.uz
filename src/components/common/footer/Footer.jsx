@@ -9,6 +9,7 @@ const navItems = [
   { id: 3, name: "Jarayon", url: "work-process" },
   { id: 4, name: "Universitetlar", url: "universitetlar" },
   { id: 5, name: "Xizmatlar", url: "services" },
+  { id: 6, name: "Videolar", url: "videos" },
 ];
 const copyrightYear = new Date().getFullYear();
 
