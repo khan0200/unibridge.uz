@@ -3,9 +3,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import { submitToGoogleSheets } from '../config/googleSheets';
 import { trackFormSubmission, trackButtonClick } from '../config/googleSheets';
-import reg1 from '../assets/reg1.jpg';
-import reg2 from '../assets/reg2.jpg';
-// Import Swiper styles
+import page1  from '../assets/Page1.jpg';
+import reg1   from '../assets/reg1.jpg';
+import reg2   from '../assets/reg2.jpg';
+import page4  from '../assets/PAGE 4.jpg';
+import page5  from '../assets/PAGE 5.jpg';
+import page6  from '../assets/PAGE 6.jpg';
+// Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -100,16 +104,12 @@ const Registration = () => {
 
 
   const carouselImages = [
-    {
-      src: reg1,
-      title: "KOREYADA TA'LIM",
-      description: '2025-YIL KUZ'
-    },
-    {
-      src: reg2,
-      title: "KOREYADA TA'LIM",
-      description: '2025-YIL KUZ'
-    }
+    { src: page1, alt: "Koreyada ta'lim" },
+    { src: reg1,  alt: "Ro'yxatdan o'tish" },
+    { src: reg2,  alt: "Ro'yxatdan o'tish 2" },
+    { src: page4, alt: "Koreyada ta'lim - 4" },
+    { src: page5, alt: "Koreyada ta'lim - 5" },
+    { src: page6, alt: "Koreyada ta'lim - 6" },
   ];
 
   // Trigger entrance animation
@@ -302,37 +302,12 @@ const Registration = () => {
                   >
                     {carouselImages.map((image, index) => (
                       <SwiperSlide key={index}>
-                        <div className="w-full h-full group">
-                          <div className="relative w-full h-full">
-                            {/* Full-size University Logo Container */}
-                            <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500 border border-gray-100 group-hover:border-blue-200 group-hover:scale-[1.02] touch-manipulation">
-                              {/* Background Gradient Overlay */}
-                              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 via-white/90 to-purple-50/80 z-10"></div>
-                              
-                              {/* University Logo - Full Size */}
-                              <div className="absolute inset-0 flex items-center justify-center z-20">
-                                <img
-                                  src={image.src}
-                                  alt={image.title}
-                                  className="w-full h-full object-cover filter group-hover:brightness-110 transition-all duration-500"
-                                />
-                              </div>
-                              
-                              {/* University Info Overlay */}
-                              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-6 z-30">
-                                <h4 className="text-lg md:text-xl font-bold text-white mb-1 group-hover:text-blue-200 transition-colors duration-300">
-                                  {image.title}
-                                </h4>
-                                <p className="text-white/90 text-sm md:text-base leading-relaxed">
-                                  {image.description}
-                                </p>
-                              </div>
-                              
-                              {/* Decorative Elements */}
-                              <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse z-40"></div>
-                              <div className="absolute top-8 right-8 w-2 h-2 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse delay-150 z-40"></div>
-                            </div>
-                          </div>
+                        <div className="relative w-full h-64 md:h-80 lg:h-96 rounded-2xl overflow-hidden">
+                          <img
+                            src={image.src}
+                            alt={image.alt}
+                            className="w-full h-full object-cover"
+                          />
                         </div>
                       </SwiperSlide>
                     ))}
