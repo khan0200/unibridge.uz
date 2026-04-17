@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import page1 from "../../assets/Page1.jpg";
-import page2 from "../../assets/page2.png";
 import reg1 from "../../assets/reg1.jpg";
 import reg2 from "../../assets/reg2.jpg";
+import page4 from "../../assets/PAGE 4.jpg";
+import page5 from "../../assets/PAGE 5.jpg";
+import page6 from "../../assets/PAGE 6.jpg";
 import "./introduction.css";
 import InformationSummary from "./InformationSummary";
 import { Link } from "react-router-dom";
@@ -18,18 +20,28 @@ const carouselImages = [
   },
   {
     id: 2,
-    src: page2,
-    alt: "Koreyada ta'lim - Page 2"
-  },
-  {
-    id: 3,
     src: reg1,
     alt: "Ro'yxatdan o'tish - Reg 1"
   },
   {
-    id: 4,
+    id: 3,
     src: reg2,
     alt: "Ro'yxatdan o'tish - Reg 2"
+  },
+  {
+    id: 4,
+    src: page4,
+    alt: "Koreyada ta'lim - Page 4"
+  },
+  {
+    id: 5,
+    src: page5,
+    alt: "Koreyada ta'lim - Page 5"
+  },
+  {
+    id: 6,
+    src: page6,
+    alt: "Koreyada ta'lim - Page 6"
   }
 ];
 

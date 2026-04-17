@@ -162,8 +162,7 @@ function ShortsGrid({ items }) {
 
   return (
     <>
-      {/* 4-item grid for current page */}
-      <div className="grid grid-cols-4 gap-3 sm:gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
         {pageItems.map((v, i) => {
           const globalIdx = page * PER_PAGE + i;
           return (

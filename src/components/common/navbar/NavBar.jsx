@@ -119,28 +119,21 @@ const NavBar = () => {
   return (
     <div
       className={`sticky top-0 z-50 ${position > 50
-        ? "bg-white/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-slate-200/70 py-2"
-        : "bg-white/95 border-b border-slate-100 py-2.5"
+        ? "bg-white/90 backdrop-blur-xl shadow-lg shadow-black/5 border-b border-slate-200/70"
+        : "bg-white/95 border-b border-slate-100"
         }`}
-      style={{ transition: 'background-color 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease' }}
+      style={{ transition: 'background-color 0.4s ease, box-shadow 0.4s ease' }}
     >
-      <div className="navbar flex justify-between mx-auto content px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
+      <div className="w-full px-4 sm:px-6 lg:px-8 py-2 lg:py-2.5">
+
+        {/* ── MOBILE layout (< lg) ─────────────────────────── */}
+        <div className="flex lg:hidden items-center justify-between">
+
+          {/* Left: hamburger dropdown */}
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />
+            <div tabIndex={0} role="button" className="btn btn-ghost p-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
               </svg>
             </div>
             <ul
@@ -148,31 +141,58 @@ const NavBar = () => {
               className="menu menu-lg dropdown-content rounded-2xl z-[60] mt-3 w-72 p-3 shadow-xl font-semibold flex-nowrap bg-white/95 backdrop-blur-xl text-black border border-gray-100"
             >
               <NavBarMenu />
+              <li className="mt-2 px-2">
+                <button
+                  onClick={handleRegistrationClick}
+                  className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white text-sm font-semibold py-3 px-4 rounded-xl text-center"
+                >
+                  Ro'yxatdan o'tish
+                </button>
+              </li>
             </ul>
           </div>
 
+          {/* Center: logo */}
+          <button onClick={handleLogoClick} className="bg-transparent border-0 cursor-pointer p-0">
+            <img src={logo} className="h-10 rounded-xl" alt="UniBridge logo" />
+          </button>
+
+          {/* Right: compact register button */}
           <button
-            onClick={handleLogoClick}
-            className="flex items-center border-0 lg:max-xxl:ps-5 bg-transparent cursor-pointer"
+            onClick={handleRegistrationClick}
+            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white text-xs font-bold px-3 py-2 rounded-xl shadow-md"
+            style={{ minHeight: 'auto', minWidth: 'auto' }}
           >
-            <img src={logo} className="h-9 sm:h-12 rounded-2xl" alt="logo" />
+            Ariza
           </button>
         </div>
 
-        <div className="lg:flex items-center">
-          <ul className="hidden lg:flex menu menu-horizontal text-[15px] font-medium md:shrink-0">
+        {/* ── DESKTOP layout (≥ lg) ────────────────────────── */}
+        <div className="hidden lg:flex items-center justify-between">
+
+          {/* Left: logo */}
+          <button onClick={handleLogoClick} className="flex items-center bg-transparent border-0 cursor-pointer p-0">
+            <img src={logo} className="h-12 rounded-2xl" alt="UniBridge logo" />
+          </button>
+
+          {/* Center: nav links */}
+          <ul className="flex menu menu-horizontal text-[15px] font-medium">
             <NavBarMenu />
           </ul>
+
+          {/* Right: register CTA */}
           <button
             onClick={handleRegistrationClick}
-            className="hidden lg:inline-flex btn-cta ml-4 px-4 py-2 text-sm"
+            className="btn-cta px-5 py-2.5 text-sm"
           >
             Ro'yxatdan o'tish
           </button>
         </div>
+
       </div>
     </div>
   );
 };
 
 export default NavBar;
+
