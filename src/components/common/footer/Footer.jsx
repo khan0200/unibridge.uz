@@ -7,7 +7,7 @@ const navItems = [
   { id: 1, name: "Bosh sahifa", url: "introduction" },
   { id: 2, name: "Biz haqimizda", url: "profile" },
   { id: 3, name: "Jarayon", url: "work-process" },
-  { id: 4, name: "Universitetlar", url: "universitetlar" },
+  { id: 4, name: "Admissions", url: "https://admissions-university.vercel.app/" },
   { id: 5, name: "Xizmatlar", url: "services" },
   { id: 6, name: "Videolar", url: "videos" },
 ];
@@ -22,6 +22,12 @@ const Footer = () => {
     // Track navigation click
     trackButtonClick(`nav_${url}`, 'footer');
     
+    // Handle external links
+    if (url.startsWith('http')) {
+      window.location.href = url;
+      return;
+    }
+
     // Special handling for bizning-manzil - redirect to contact section
     const targetSection = url === 'bizning-manzil' ? 'contact' : url;
     

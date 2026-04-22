@@ -7,7 +7,7 @@ const navItems = [
   { id: 2, name: "Biz haqimizda", url: "profile", type: "scroll" },
   { id: 3, name: "Xizmatlar", url: "services", type: "scroll" },
   { id: 4, name: "Jarayon", url: "work-process", type: "scroll" },
-  { id: 5, name: "Universitetlar", url: "/universities", type: "page" },
+  { id: 5, name: "Admissions", url: "https://admissions-university.vercel.app/", type: "external" },
   { id: 6, name: "Videolar", url: "videos", type: "scroll" },
   { id: 7, name: "Aloqa", url: "contact", type: "scroll" },
 ];
@@ -26,6 +26,12 @@ const NavBarMenu = () => {
     // Handle page navigation (for /universities, etc.)
     if (item.type === 'page') {
       navigate(item.url);
+      return;
+    }
+
+    // Handle external navigation
+    if (item.type === 'external') {
+      window.location.href = item.url;
       return;
     }
 
